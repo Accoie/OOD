@@ -11,7 +11,6 @@ public class Duck : IDuck
     private IFlyBehavior _flyBehavior;
     private readonly IQuackBehavior _quackBehavior;
     private readonly IDanceBehavior _danceBehavior;
-    public bool IsQuackOnEvenFlight { get; private set; } = false;
 
     public Duck( IFlyBehavior flyBehavior, IQuackBehavior quakBehavior, IDanceBehavior danceBehavior )
     {
@@ -45,6 +44,7 @@ public class Duck : IDuck
         {
             OnFly();
         }
+
         _flyBehavior.Fly();
     }
 
@@ -55,9 +55,7 @@ public class Duck : IDuck
 
     private void OnFly()
     {
-        int quackModulo = IsQuackOnEvenFlight ? 1 : 0;
-
-        if ( ++_flyCount % 2 == quackModulo )
+        if ( ++_flyCount % 2 == 0 )
         {
             Quak();
         }

@@ -1,13 +1,9 @@
-﻿using SimUDuck.DucksActions.Dance;
-using SimUDuck.DucksActions.Fly;
-using SimUDuck.DucksActions.Quack;
+﻿using SimUDuck.DucksActions.Fly;
 
 namespace SimUDuck.Ducks
 {
     public interface IDuck
     {
-        bool IsQuackOnEvenFlight { get; }
-
         void Dance();
         void Display();
         void Fly();
