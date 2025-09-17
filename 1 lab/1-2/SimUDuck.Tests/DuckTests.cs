@@ -16,43 +16,43 @@ public class DuckTests
     public void Dance_WithDuck_WillDance()
     {
         //Arrange
-        bool wasDanced = false;
-        IDuck duck = new Duck( _flyBehaviorMock.Object, _quackBehaviorMock.Object, _danceBehaviorMock.Object );
-        _danceBehaviorMock.Setup( x => x.Dance() ).Callback( () => wasDanced = true );
-
+        bool danced = false;
+        Mock<Duck> duck = new Mock<Duck>( _flyBehaviorMock.Object, _quackBehaviorMock.Object, _danceBehaviorMock.Object );
+        _danceBehaviorMock.Setup( x => x.Dance() ).Callback( () => danced = true );
+        duck.CallBase = true;
         //Act
-        duck.Dance();
+        duck.Object.Dance();
 
         //Assert
-        Assert.That( wasDanced, Is.True );
+        Assert.That( danced, Is.True );
     }
 
     [Test]
-    public void OnFly_WithDuckOnOddFlight_WillNotQuack()
+    public void Fly_WithDuckOnOddFlight_WillNotQuack()
     {
         //Arrange
-        bool isQuacked = false;
-        IDuck duck = new Duck( _flyBehaviorMock.Object, _quackBehaviorMock.Object, _danceBehaviorMock.Object );
-        _quackBehaviorMock.Setup( x => x.Quack() ).Callback( () => isQuacked = true );
-
+        bool quacked = false;
+        Mock<Duck> duck = new Mock<Duck>( _flyBehaviorMock.Object, _quackBehaviorMock.Object, _danceBehaviorMock.Object );
+        _quackBehaviorMock.Setup( x => x.Quack() ).Callback( () => quacked = true );
+        duck.CallBase = true;
         //Act
-        duck.Fly();
+        duck.Object.Fly();
 
         //Assert
-        Assert.That( isQuacked, Is.False );
+        Assert.That( quacked, Is.False );
     }
 
     [Test]
-    public void OnFly_WithDuckOnEvenFlight_WillQuack()
+    public void Fly_WithDuckOnEvenFlight_WillQuack()
     {
         //Arrange
         bool isQuacked = false;
-        IDuck duck = new Duck( _flyBehaviorMock.Object, _quackBehaviorMock.Object, _danceBehaviorMock.Object );
+        Mock<Duck> duck = new Mock<Duck>( _flyBehaviorMock.Object, _quackBehaviorMock.Object, _danceBehaviorMock.Object );
         _quackBehaviorMock.Setup( x => x.Quack() ).Callback( () => isQuacked = true );
-
+        duck.CallBase = true;
         //Act
-        duck.Fly();
-        duck.Fly();
+        duck.Object.Fly();
+        duck.Object.Fly();
         //Assert
         Assert.That( isQuacked, Is.True );
     }

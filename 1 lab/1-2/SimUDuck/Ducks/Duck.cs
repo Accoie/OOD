@@ -4,10 +4,8 @@ using SimUDuck.DucksActions.Quack;
 
 namespace SimUDuck.Ducks;
 
-public class Duck : IDuck
+public abstract class Duck
 {
-    private int _flyCount = 0;
-
     private IFlyBehavior _flyBehavior;
     private readonly IQuackBehavior _quackBehavior;
     private readonly IDanceBehavior _danceBehavior;
@@ -19,13 +17,11 @@ public class Duck : IDuck
         _danceBehavior = danceBehavior;
     }
 
+    public abstract void Display();
+
     public virtual void Dance()
     {
         _danceBehavior.Dance();
-    }
-
-    public virtual void Display()
-    {
     }
 
     public void Quak()
@@ -55,11 +51,13 @@ public class Duck : IDuck
 
     private void OnFly()
     {
-        if ( ++_flyCount % 2 == 0 )
+        int flyCount = _flyBehavior.FlyCount;
+
+        if ( flyCount % 2 == 0 && flyCount != 0 )
         {
             Quak();
         }
 
-        Console.WriteLine( $"This'll be my {_flyCount} flight!" );
+        Console.WriteLine( $"This'll be my {++flyCount} flight!" );
     }
 }

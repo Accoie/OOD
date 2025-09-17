@@ -2,12 +2,11 @@
 
 public class Duck : IDuck
 {
+    // flybahvior сделать так чтобы утка не хранила кол-во вылетов но могла прокрфякать перед каждым четным вылетом
     private Func<int> _flyBehavior;
     private readonly Action _quackBehavior;
     private readonly Action _danceBehavior;
     private bool _isCanFly;
-
-    public bool IsQuackOnEvenFlight { get; private set; } = false;
 
     public Duck( (Func<int>, bool) flyBehavior, Action quakBehavior, Action danceBehavior )
     {
@@ -54,6 +53,6 @@ public class Duck : IDuck
     public void SetFlyBehavior( (Func<int>, bool) flyBehavior )
     {
         _flyBehavior = flyBehavior.Item1;
-        _isCanFly |= flyBehavior.Item2;
+        _isCanFly = flyBehavior.Item2;
     }
 }

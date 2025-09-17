@@ -2,8 +2,6 @@
 {
     public interface IDuck
     {
-        bool IsQuackOnEvenFlight { get; }
-
         void Dance();
         void Display();
         void Fly();

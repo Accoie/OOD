@@ -28,7 +28,7 @@ public class DuckTests
     }
 
     [Test]
-    public void OnFly_WithDuckOnOddFlight_WillNotQuack()
+    public void Fly_WithDuckOnOddFlight_WillNotQuack()
     {
         //Arrange
         int quackCount = 0;
@@ -48,7 +48,7 @@ public class DuckTests
     }
 
     [Test]
-    public void OnFly_WithDuckOnEvenFlight_WillQuack()
+    public void Fly_WithDuckOnEvenFlight_WillQuack()
     {
         //Arrange
         int quackCount = 0;

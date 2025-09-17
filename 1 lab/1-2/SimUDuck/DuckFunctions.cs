@@ -4,12 +4,12 @@ namespace SimUDuck
 {
     public static class DuckFunctions
     {
-        public static void DrawDuck( IDuck duck )
+        public static void DrawDuck( Duck duck )
         {
             duck.Display();
         }
 
-        public static void PlayWithDuck( IDuck duck )
+        public static void PlayWithDuck( Duck duck )
         {
             DrawDuck( duck );
             duck.Quak();
