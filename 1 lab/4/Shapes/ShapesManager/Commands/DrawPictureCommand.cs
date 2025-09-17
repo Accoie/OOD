@@ -2,8 +2,7 @@
 
 public class DrawPictureCommand : ICommand
 {
-    private readonly CommandContext _commandContext
-        ;
+    private readonly CommandContext _commandContext;
 
     public DrawPictureCommand( CommandContext commandContext )
     {

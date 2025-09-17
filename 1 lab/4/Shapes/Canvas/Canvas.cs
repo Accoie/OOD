@@ -1,5 +1,4 @@
-﻿
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 
 using Shapes.Canvas;

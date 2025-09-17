@@ -19,16 +19,18 @@ public class ShapesManager
         string[] commandItems = commandStr.Split( ' ' );
         var commandName = commandItems[ 0 ];
         var shapeParams = commandItems.Skip( 1 ).ToArray();
+
         try
         {
             var commandFactory = new CommandFactory( _commandContext );
 
             ICommand command = commandFactory.Create( commandName );
+
             command.Execute( shapeParams );
         }
         catch ( Exception e )
         {
-            Console.WriteLine( e );
+            Console.WriteLine( e.Message );
         }
     }
 }

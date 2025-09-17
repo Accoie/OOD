@@ -9,6 +9,7 @@ public abstract class BaseDrawingStrategy
     abstract public IShapeParams ShapeParams { get; }
     abstract public void Draw( ICanvas canvas );
     abstract public string GetInfo();
+
     public void Move( ICanvas canvas, double dx, double dy )
     {
         ShapeParams.Vertices = ShapeParams.Vertices

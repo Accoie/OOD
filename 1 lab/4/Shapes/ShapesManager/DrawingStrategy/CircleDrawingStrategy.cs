@@ -5,8 +5,9 @@ namespace Shapes.ShapesManager.DrawingStrategy;
 
 public class CircleDrawingStrategy : BaseDrawingStrategy
 {
-    public override IShapeParams ShapeParams { get; }
     private CircleParams _circleParams;
+
+    public override IShapeParams ShapeParams { get; }
 
     public CircleDrawingStrategy( CircleParams circleParams )
     {

@@ -7,7 +7,7 @@ namespace Shapes.ShapesManager;
 public class Picture
 {
     private List<ShapeData> _shapes = new List<ShapeData>();
-    private ICanvas _canvas;
+    private readonly ICanvas _canvas;
 
     public Picture( ICanvas canvas )
     {
@@ -38,30 +38,6 @@ public class Picture
         }
 
         return shapeData.shape.GetColor();
-    }
-
-    private ShapeData? FindShapeDataById( string id )
-    {
-        foreach ( var shapeTuple in _shapes )
-        {
-            if ( shapeTuple.id == id )
-            {
-                return shapeTuple;
-            }
-        }
-        return null;
-    }
-
-    private Shape GetShapeById( string id )
-    {
-        var shapeData = FindShapeDataById( id );
-
-        if ( shapeData is null )
-        {
-            throw new Exception( "Shape with this id doesn't exist" );
-        }
-
-        return shapeData.shape;
     }
 
     public void AddShape( string id, BaseDrawingStrategy drawingStrategy )
@@ -149,5 +125,29 @@ public class Picture
     private void DrawShapeCanvas( Shape shape )
     {
         shape.Draw( _canvas );
+    }
+    private ShapeData? FindShapeDataById( string id )
+    {
+        foreach ( var shapeTuple in _shapes )
+        {
+            if ( shapeTuple.id == id )
+            {
+                return shapeTuple;
+            }
+        }
+
+        return null;
+    }
+
+    private Shape GetShapeById( string id )
+    {
+        var shapeData = FindShapeDataById( id );
+
+        if ( shapeData is null )
+        {
+            throw new Exception( "Shape with this id doesn't exist" );
+        }
+
+        return shapeData.shape;
     }
 }

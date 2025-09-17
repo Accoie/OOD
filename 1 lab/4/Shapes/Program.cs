@@ -9,7 +9,7 @@ public class Program
     {
         RenderWindow renderWindow = new RenderWindow(
             new SFML.Window.VideoMode( 800, 600 ),
-            "SFML Window"
+            "Shapes!"
         );
         ICanvas canvas = new Canvas( renderWindow );
 
