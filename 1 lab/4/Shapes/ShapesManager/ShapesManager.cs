@@ -1,82 +1,34 @@
-﻿
-using Shapes.ShapesManager.DrawingStrategy;
+﻿using Shapes.ShapesManager.Commands;
 
 namespace Shapes.ShapesManager;
 
 public class ShapesManager
 {
-    private Picture _picture;
-    private ShapeParser shapeParser = new();
+    private readonly Picture _picture;
+    private readonly ShapeParser _shapeParser = new();
+    private readonly CommandContext _commandContext;
 
     public ShapesManager( Picture picture )
     {
         _picture = picture;
+        _commandContext = new( _picture, _shapeParser );
     }
 
     public void HandleCommandString( string commandStr )
     {
         string[] commandItems = commandStr.Split( ' ' );
-
-        switch ( commandItems[ 0 ] )
+        var commandName = commandItems[ 0 ];
+        var shapeParams = commandItems.Skip( 1 ).ToArray();
+        try
         {
-            case "AddShape":
-                {
-                    string id = commandItems[ 1 ];
-                    string color = commandItems[ 2 ];
-                    string[] unparsedParams = commandItems.Skip( 3 ).ToArray();
-                    BaseDrawingStrategy drawingStrategy = shapeParser.Parse( unparsedParams, color );
-                    _picture.AddShape( id, drawingStrategy );
-                    break;
-                }
-            case "ChangeShape":
-                {
-                    string id = commandItems[ 1 ];
-                    string[] unparsedParams = commandItems.Skip( 2 ).ToArray();
+            var commandFactory = new CommandFactory( _commandContext );
 
-                    BaseDrawingStrategy drawingStrategy = shapeParser.Parse( unparsedParams, _picture.GetShapeColorById( id ) );
-                    _picture.ChangeShape( id, drawingStrategy );
-                    break;
-                }
-            case "ChangeColor":
-                {
-                    string id = commandItems[ 1 ];
-                    string color = shapeParser.ValidateColor( commandItems[ 2 ] );
-                    _picture.ChangeColor( id, color );
-                    break;
-                }
-            case "DeleteShape":
-                {
-                    string id = commandItems[ 1 ];
-                    _picture.DeleteShape( id );
-                    break;
-                }
-            case "MoveShape":
-                {
-                    string id = commandItems[ 1 ];
-                    double dx = shapeParser.ParseDouble(commandItems[ 2 ] );
-                    double dy = shapeParser.ParseDouble( commandItems[ 3 ] );
-                    _picture.MoveShape( id, dx, dy );
-                    break;
-                }
-            case "MovePicture":
-                {
-                    double dx = shapeParser.ParseDouble( commandItems[ 1 ] );
-                    double dy = shapeParser.ParseDouble( commandItems[ 2 ] );
-                    _picture.MovePicture( dx, dy );
-                    break;
-                }
-            case "DrawShape":
-                {
-                    string id = commandItems[ 1 ];
-                    _picture.DrawShape( id );
-                    break;
-                }
-            case "DrawPicture":
-                _picture.DrawPicture();
-                break;
-            case "List":
-                Console.WriteLine(_picture.GetShapesInfo());
-                break;
+            ICommand command = commandFactory.Create( commandName );
+            command.Execute( shapeParams );
+        }
+        catch ( Exception e )
+        {
+            Console.WriteLine( e );
         }
     }
 }

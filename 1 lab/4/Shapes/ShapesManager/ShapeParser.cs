@@ -18,7 +18,7 @@ public class ShapeParser
 
     public RectangleParams ParseRectangleParams( string[] unparsedParams )
     {
-        if ( unparsedParams.Length != _rectangleParamsLength )
+        if ( unparsedParams.Length < _rectangleParamsLength )
         {
             throw new Exception( $"Params length for rectangle must be {_rectangleParamsLength}" );
         }
@@ -33,7 +33,7 @@ public class ShapeParser
 
     public CircleParams ParseCircleParams( string[] unparsedParams )
     {
-        if ( unparsedParams.Length != _circleParamsLength )
+        if ( unparsedParams.Length < _circleParamsLength )
         {
             throw new Exception( $"Params length for circle must be {_circleParamsLength}" );
         }
@@ -46,7 +46,7 @@ public class ShapeParser
 
     public TriangleParams ParseTriangleParams( string[] unparsedParams )
     {
-        if ( unparsedParams.Length != _triangleParamsLength )
+        if ( unparsedParams.Length < _triangleParamsLength )
         {
             throw new Exception( $"Params length for triangle must be {_triangleParamsLength}" );
         }
@@ -61,7 +61,7 @@ public class ShapeParser
 
     public LineParams ParseLineParams( string[] unparsedParams )
     {
-        if ( unparsedParams.Length != _lineParamsLength )
+        if ( unparsedParams.Length < _lineParamsLength )
         {
             throw new Exception( $"Params length for line must be {_lineParamsLength}" );
         }
@@ -86,16 +86,6 @@ public class ShapeParser
         return new TextParams( leftTop, fontSize, text, _shapeColor );
     }
 
-    public string ValidateIdParam( object possibleId ) 
-    {
-        if ( possibleId is not string id )
-        {
-            throw new Exception( "ID must be a string" );
-        }
-
-        return id;
-    }
-
     public string ValidateColor( string possibleColor )
     {
         var hexColorRegex = new Regex( "^#?[0-9A-Fa-f]{6}$" );
@@ -106,20 +96,6 @@ public class ShapeParser
         }
 
         return possibleColor;
-    }
-
-    public int ValidateShiftParam( object possibleShiftParam )
-    {
-        if ( possibleShiftParam is string shiftParamStr )
-        {
-            if ( int.TryParse( shiftParamStr, out int parsedShiftParam ) )
-            {
-                return parsedShiftParam;
-            }
-            throw new Exception( "DX or DY must be valid number" );
-        }
-
-        throw new Exception( "DX or DY must exist" );
     }
 
     public BaseDrawingStrategy Parse( string[] parseParams, string color )
