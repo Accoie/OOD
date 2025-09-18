@@ -1,12 +1,12 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class ChangeColorCommand : ICommand
+public class ChangeColorCommand : IShapeCommand
 {
-    private readonly CommandContext _commandContext;
+    public CommandContext Context { get; }
 
     public ChangeColorCommand( CommandContext commandContext )
     {
-        _commandContext = commandContext;
+        Context = commandContext;
     }
 
     public void Execute( string[] args )
@@ -17,8 +17,8 @@ public class ChangeColorCommand : ICommand
         }
 
         var id = args[ 0 ];
-        var color = _commandContext.ShapeParser.ValidateColor( args[ 1 ] );
+        var color = Context.ShapeParser.ValidateColor( args[ 1 ] );
 
-        _commandContext.Picture.ChangeColor( id, color );
+        Context.Picture.ChangeColor( id, color );
     }
 }

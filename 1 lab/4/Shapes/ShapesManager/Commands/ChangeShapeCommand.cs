@@ -1,12 +1,12 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class ChangeShapeCommand : ICommand
+public class ChangeShapeCommand : IShapeCommand
 {
-    private readonly CommandContext _commandContext;
+    public CommandContext Context { get; }
 
     public ChangeShapeCommand( CommandContext commandContext )
     {
-        _commandContext = commandContext;
+        Context = commandContext;
     }
 
     public void Execute( string[] args )
@@ -18,10 +18,10 @@ public class ChangeShapeCommand : ICommand
 
         var id = args[ 0 ];
         var unparsedParams = args.Skip( 1 ).ToArray();
-        var color = _commandContext.Picture.GetShapeColorById( id );
+        var color = Context.Picture.GetShapeColorById( id );
 
-        var drawingStrategy = _commandContext.ShapeParser.ParseDrawingStrategy( unparsedParams, color );
+        var drawingStrategy = Context.ShapeParser.ParseDrawingStrategy( unparsedParams, color );
 
-        _commandContext.Picture.ChangeShape( id, drawingStrategy );
+        Context.Picture.ChangeShape( id, drawingStrategy );
     }
 }

@@ -21,7 +21,7 @@ public class Picture
 
         foreach ( var shapeData in _shapes )
         {
-            stringBuilder.AppendLine( $"{i}. {shapeData.Id} {shapeData.Shape.GetInfo()} " );
+            stringBuilder.AppendLine( $"{i}. id: {shapeData.Id}; shapeType: {shapeData.Shape.GetInfo()} " );
             i++;
         }
 

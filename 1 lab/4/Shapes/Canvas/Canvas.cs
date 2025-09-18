@@ -30,6 +30,7 @@ public class Canvas : ICanvas
 
         _window.Draw( ellipse );
     }
+
     public void FillPolygon( List<Point> points )
     {
         if ( points.Count < 3 )

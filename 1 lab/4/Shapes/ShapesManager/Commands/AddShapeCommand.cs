@@ -1,12 +1,12 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class AddShapeCommand : ICommand
+public class AddShapeCommand : IShapeCommand
 {
-    private readonly CommandContext _commandContext;
+    public CommandContext Context { get; }
 
     public AddShapeCommand(CommandContext commandContext)
     {
-        _commandContext = commandContext;
+        Context = commandContext;
     }
 
     public void Execute( string[] args )
@@ -20,8 +20,8 @@ public class AddShapeCommand : ICommand
         var color = args[ 1 ];
         var unparsedParams = args.Skip( 2 ).ToArray();
 
-        var drawingStrategy = _commandContext.ShapeParser.ParseDrawingStrategy( unparsedParams, color );
+        var drawingStrategy = Context.ShapeParser.ParseDrawingStrategy( unparsedParams, color );
 
-        _commandContext.Picture.AddShape( id, drawingStrategy );
+        Context.Picture.AddShape( id, drawingStrategy );
     }
 }

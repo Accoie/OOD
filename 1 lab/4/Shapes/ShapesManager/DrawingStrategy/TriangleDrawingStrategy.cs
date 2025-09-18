@@ -28,13 +28,13 @@ public class TriangleDrawingStrategy : BaseDrawingStrategy
     {
         var vertices = ShapeParams.Vertices;
 
-        var info = "triangle - color: #" +
+        var info = "triangle; color: #" +
             ShapeParams.Color +
-            " - firstVertex: " +
+            "; firstVertex: " +
             vertices[ 0 ].ToString() +
-            " - secondVertex: " +
+            "; secondVertex: " +
             vertices[ 1 ].ToString() +
-            " - thirdVertex: " +
+            "; thirdVertex: " +
             vertices[ 2 ].ToString();
 
         return info;

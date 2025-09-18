@@ -5,14 +5,13 @@ namespace Shapes.ShapesManager;
 
 public class ShapesManager
 {
-    private readonly Picture _picture;
-    private readonly ShapeParser _shapeParser = new();
     private readonly CommandContext _commandContext;
+    private readonly CommandFactory _commandFactory;
 
     public ShapesManager( Picture picture )
     {
-        _picture = picture;
-        _commandContext = new( _picture, _shapeParser );
+        _commandContext = new( picture, new ShapeParser() );
+        _commandFactory = new CommandFactory( _commandContext );
     }
 
     public void HandleCommandString( string commandStr )
@@ -40,9 +39,7 @@ public class ShapesManager
 
         var shapeParams = commandItems.Skip( 1 ).ToArray();
 
-        var commandFactory = new CommandFactory( _commandContext );
-
-        ICommand command = commandFactory.Create( commandName );
+        IShapeCommand command = _commandFactory.Create( commandName );
 
         command.Execute( shapeParams );
     }

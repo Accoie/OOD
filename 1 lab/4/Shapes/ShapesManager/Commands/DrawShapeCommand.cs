@@ -1,12 +1,12 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class DrawShapeCommand : ICommand
+public class DrawShapeCommand : IShapeCommand
 {
-    private readonly CommandContext _commandContext;
+    public CommandContext Context { get; }
 
     public DrawShapeCommand( CommandContext commandContext )
     {
-        _commandContext = commandContext;
+        Context = commandContext;
     }
 
     public void Execute( string[] args )
@@ -18,6 +18,6 @@ public class DrawShapeCommand : ICommand
 
         var id = args[ 0 ];
 
-        _commandContext.Picture.DrawShape( id );
+        Context.Picture.DrawShape( id );
     }
 }

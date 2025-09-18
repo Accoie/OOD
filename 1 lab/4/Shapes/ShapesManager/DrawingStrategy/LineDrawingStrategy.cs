@@ -23,6 +23,6 @@ public class LineDrawingStrategy : BaseDrawingStrategy
     {
         var vertices = ShapeParams.Vertices;
 
-        return "line - color: #" + $"{ShapeParams.Color} - from: {vertices[ 0 ]} - to: {vertices[ 1 ]}";
+        return "line; color: #" + $"{ShapeParams.Color}; from: {vertices[ 0 ]}; to: {vertices[ 1 ]}";
     }
 }

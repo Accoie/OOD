@@ -28,11 +28,11 @@ public class CircleDrawingStrategy : BaseDrawingStrategy
 
     public override string GetInfo()
     {
-        var info = "circle - color: #" +
+        var info = "circle; color: #" +
             _circleParams.Color +
-            " - center: " +
+            "; center: " +
             _circleParams.Vertices[ 0 ].ToString() +
-            " - radius: " +
+            "; radius: " +
             _circleParams.Radius;
 
         return info;

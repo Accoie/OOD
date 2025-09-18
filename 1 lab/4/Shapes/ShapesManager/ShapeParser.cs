@@ -15,6 +15,7 @@ public class ShapeParser
     private const int _textParamsLength = 4;
 
     private string _shapeColor = "ffffff";
+
     public BaseDrawingStrategy ParseDrawingStrategy( string[] parseParams, string color )
     {
         if ( parseParams.Length == 0 )

@@ -1,12 +1,12 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class MovePictureCommand : ICommand
+public class MovePictureCommand : IShapeCommand
 {
-    private readonly CommandContext _commandContext;
+    public CommandContext Context { get; }
 
     public MovePictureCommand( CommandContext commandContext )
     {
-        _commandContext = commandContext;
+        Context = commandContext;
     }
 
     public void Execute( string[] args )
@@ -16,9 +16,9 @@ public class MovePictureCommand : ICommand
             throw new Exception( "Invalid command format! Must be: MovePicture <dx> <dy>" );
         }
 
-        var dx = _commandContext.ShapeParser.ParseDouble( args[ 0 ] );
-        var dy = _commandContext.ShapeParser.ParseDouble( args[ 1 ] );
+        var dx = Context.ShapeParser.ParseDouble( args[ 0 ] );
+        var dy = Context.ShapeParser.ParseDouble( args[ 1 ] );
 
-        _commandContext.Picture.MovePicture( dx, dy );
+        Context.Picture.MovePicture( dx, dy );
     }
 }

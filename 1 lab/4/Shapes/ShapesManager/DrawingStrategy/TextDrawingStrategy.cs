@@ -22,13 +22,13 @@ public class TextDrawingStrategy : BaseDrawingStrategy
 
     public override string GetInfo()
     {
-        var info = "text - color: #" +
+        var info = "text; color: #" +
             _textParams.Color +
-            " - leftTop: " +
+            "; leftTop: " +
             _textParams.Vertices[ 0 ].ToString() +
-            " - fontSize: " +
+            "; fontSize: " +
             _textParams.FontSize +
-            " - text: " +
+            "; text: " +
             _textParams.Text;
 
         return info;

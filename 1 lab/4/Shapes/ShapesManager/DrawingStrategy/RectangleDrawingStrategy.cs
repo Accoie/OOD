@@ -39,11 +39,11 @@ public class RectangleDrawingStrategy : BaseDrawingStrategy
     {
         var vertices = ShapeParams.Vertices;
 
-        var info = "rectangle - color: #" +
+        var info = "rectangle; color: #" +
             ShapeParams.Color +
-            " - leftTop: " +
+            "; leftTop: " +
             vertices[ 0 ].ToString() +
-            " - rightBottom: " +
+            "; rightBottom: " +
             vertices[ 1 ].ToString();
 
         return info;

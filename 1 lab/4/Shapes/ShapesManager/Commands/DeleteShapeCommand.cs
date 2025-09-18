@@ -1,12 +1,12 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class DeleteShapeCommand : ICommand
+public class DeleteShapeCommand : IShapeCommand
 {
-    private readonly CommandContext _commandContext;
+    public CommandContext Context { get; }
 
     public DeleteShapeCommand( CommandContext commandContext )
     {
-        _commandContext = commandContext;
+        Context = commandContext;
     }
 
     public void Execute( string[] args )
@@ -18,6 +18,6 @@ public class DeleteShapeCommand : ICommand
 
         var id = args[ 0 ];
 
-        _commandContext.Picture.DeleteShape( id );
+        Context.Picture.DeleteShape( id );
     }
 }

@@ -11,7 +11,7 @@ public class CommandFactory
         _commandContext = commandContext;
     }
 
-    public ICommand Create( string commandName )
+    public IShapeCommand Create( string commandName )
     {
         return commandName.ToLower() switch
         {

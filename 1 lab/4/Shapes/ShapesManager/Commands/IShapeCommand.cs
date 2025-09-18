@@ -1,6 +1,8 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public interface ICommand
+public interface IShapeCommand
 {
+    CommandContext Context { get; }
+
     void Execute( string[] args );
 }

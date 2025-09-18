@@ -1,16 +1,16 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class ListCommand : ICommand
+public class ListCommand : IShapeCommand
 {
-    private readonly CommandContext _commandContext;
+    public CommandContext Context { get; }
 
     public ListCommand( CommandContext commandContext )
     {
-        _commandContext = commandContext;
+        Context = commandContext;
     }
 
     public void Execute( string[] args )
     {
-        Console.WriteLine( _commandContext.Picture.GetShapesInfo() );
+        Console.WriteLine( Context.Picture.GetShapesInfo() );
     }
 }
