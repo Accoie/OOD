@@ -22,7 +22,7 @@ public class TextDrawingStrategy : BaseDrawingStrategy
 
     public override string GetInfo()
     {
-        string finalString = "text - color: #" +
+        var info = "text - color: #" +
             _textParams.Color +
             " - leftTop: " +
             _textParams.Vertices[ 0 ].ToString() +
@@ -31,6 +31,6 @@ public class TextDrawingStrategy : BaseDrawingStrategy
             " - text: " +
             _textParams.Text;
 
-        return finalString;
+        return info;
     }
 }

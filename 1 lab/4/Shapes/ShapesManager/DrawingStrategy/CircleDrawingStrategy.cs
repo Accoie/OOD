@@ -22,18 +22,19 @@ public class CircleDrawingStrategy : BaseDrawingStrategy
         var radius = _circleParams.Radius;
 
         canvas.SetColor( color );
+
         canvas.DrawEllipse( center, radius, radius );
     }
 
     public override string GetInfo()
     {
-        string finalString = "circle - color: #" +
+        var info = "circle - color: #" +
             _circleParams.Color +
             " - center: " +
             _circleParams.Vertices[ 0 ].ToString() +
             " - radius: " +
             _circleParams.Radius;
 
-        return finalString;
+        return info;
     }
 }

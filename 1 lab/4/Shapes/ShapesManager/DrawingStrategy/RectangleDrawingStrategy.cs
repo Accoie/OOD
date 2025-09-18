@@ -21,12 +21,10 @@ public class RectangleDrawingStrategy : BaseDrawingStrategy
         canvas.SetColor( color );
 
         var polygonPoints = new List<Point>
-    {
-        vertices[0],
-        new Point(vertices[1].X, vertices[0].Y),
-        vertices[1],
-        new Point(vertices[0].X, vertices[1].Y)
-    };
+        {
+            vertices[0], new Point(vertices[1].X, vertices[0].Y),
+            vertices[1], new Point(vertices[0].X, vertices[1].Y)
+        };
 
         canvas.FillPolygon( polygonPoints );
 
@@ -41,13 +39,13 @@ public class RectangleDrawingStrategy : BaseDrawingStrategy
     {
         var vertices = ShapeParams.Vertices;
 
-        string finalString = "rectangle - color: #" +
+        var info = "rectangle - color: #" +
             ShapeParams.Color +
             " - leftTop: " +
             vertices[ 0 ].ToString() +
             " - rightBottom: " +
             vertices[ 1 ].ToString();
 
-        return finalString;
+        return info;
     }
 }

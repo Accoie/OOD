@@ -11,9 +11,15 @@ public class MoveShapeCommand : ICommand
 
     public void Execute( string[] args )
     {
-        string id = args[ 0 ];
-        double dx = _commandContext.ShapeParser.ParseDouble( args[ 1 ] );
-        double dy = _commandContext.ShapeParser.ParseDouble( args[ 2 ] );
+        if ( args.Length < 3)
+        {
+            throw new Exception( "Invalid command format! Must be: MoveShape <id> <dx> <dy>" );
+        }
+
+        var id = args[ 0 ];
+        var dx = _commandContext.ShapeParser.ParseDouble( args[ 1 ] );
+        var dy = _commandContext.ShapeParser.ParseDouble( args[ 2 ] );
+
         _commandContext.Picture.MoveShape( id, dx, dy );
     }
 }

@@ -16,12 +16,12 @@ public class Picture
 
     public string GetShapesInfo()
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        int i = 1;
+        var stringBuilder = new StringBuilder();
+        var i = 1;
 
         foreach ( var shapeData in _shapes )
         {
-            stringBuilder.AppendLine( $"{i}. {shapeData.id} {shapeData.shape.GetInfo()} " );
+            stringBuilder.AppendLine( $"{i}. {shapeData.Id} {shapeData.Shape.GetInfo()} " );
             i++;
         }
 
@@ -30,14 +30,9 @@ public class Picture
 
     public string GetShapeColorById( string id )
     {
-        var shapeData = FindShapeDataById( id );
+        var shapeData = FindShapeDataByIdThrow( id );
 
-        if ( shapeData is null )
-        {
-            throw new Exception( "Shape with this id doesn't exist" );
-        }
-
-        return shapeData.shape.GetColor();
+        return shapeData.Shape.GetColor();
     }
 
     public void AddShape( string id, BaseDrawingStrategy drawingStrategy )
@@ -47,24 +42,14 @@ public class Picture
             throw new Exception( "Shape with this id already exists" );
         }
 
-        ShapeData shapeData = new ShapeData
-        {
-            id = id,
-            shape = new Shape( drawingStrategy ),
-            draw = false
-        };
+        ShapeData shapeData = new ShapeData( id, new Shape( drawingStrategy ), false );
 
         _shapes.Add( shapeData );
     }
 
     public void DeleteShape( string id )
     {
-        var shape = FindShapeDataById( id );
-
-        if ( shape is null )
-        {
-            throw new Exception( "Shape with this id doesn't exist" );
-        }
+        var shape = FindShapeDataByIdThrow( id );
 
         _shapes.Remove( shape );
     }
@@ -73,51 +58,61 @@ public class Picture
     {
         foreach ( var shapeData in _shapes )
         {
-            shapeData.draw = true;
-            DrawShapeCanvas( shapeData.shape );
+            shapeData.Draw = true;
+            DrawShapeCanvas( shapeData.Shape );
         }
     }
 
     public void DrawShape( string id )
     {
-        foreach ( var shapeData in _shapes )
+        var shapeData = FindShapeDataByIdThrow( id );
+
+        if ( shapeData.Id == id )
         {
-            if( shapeData.id == id )
-            {
-                shapeData.draw = true;
-            }
-            if ( shapeData.draw )
-            {
-                DrawShapeCanvas(shapeData.shape);
-            }
+            shapeData.Draw = true;
         }
+
+        RenderPicture();
     }
 
     public void ChangeShape( string id, BaseDrawingStrategy newDrawingStrategy )
     {
         GetShapeById( id ).SetDrawingStrategy( newDrawingStrategy );
+
+        RenderPicture();
     }
 
     public void ChangeColor( string id, string newColor )
     {
         GetShapeById( id ).SetColor( newColor );
+
+        RenderPicture();
     }
 
     public void MoveShape( string id, double dx, double dy )
     {
         GetShapeById( id ).Move( _canvas, dx, dy );
-        DrawShape( id );
+
+        RenderPicture();
     }
 
     public void MovePicture( double dx, double dy )
     {
         foreach ( var shapeData in _shapes )
         {
-            shapeData.shape.Move( _canvas, dx, dy );
+            shapeData.Shape.Move( _canvas, dx, dy );
+        }
 
-            if ( shapeData.draw )
+        RenderPicture();
+    }
+
+    private void RenderPicture()
+    {
+        foreach ( var shapeData in _shapes )
+        {
+            if ( shapeData.Draw )
             {
-                DrawShapeCanvas( shapeData.shape );
+                DrawShapeCanvas( shapeData.Shape );
             }
         }
     }
@@ -126,11 +121,24 @@ public class Picture
     {
         shape.Draw( _canvas );
     }
+
+    private ShapeData FindShapeDataByIdThrow( string id )
+    {
+        var result = FindShapeDataById( id );
+
+        if ( result == null )
+        {
+            throw new Exception( $"Shape with id \"{id}\" doesn't exist" );
+        }
+
+        return result;
+    }
+
     private ShapeData? FindShapeDataById( string id )
     {
         foreach ( var shapeTuple in _shapes )
         {
-            if ( shapeTuple.id == id )
+            if ( shapeTuple.Id == id )
             {
                 return shapeTuple;
             }
@@ -141,13 +149,22 @@ public class Picture
 
     private Shape GetShapeById( string id )
     {
-        var shapeData = FindShapeDataById( id );
+        var shapeData = FindShapeDataByIdThrow( id );
 
-        if ( shapeData is null )
-        {
-            throw new Exception( "Shape with this id doesn't exist" );
-        }
+        return shapeData.Shape;
+    }
+}
 
-        return shapeData.shape;
+public class ShapeData
+{
+    public string Id { get; }
+    public Shape Shape { get; }
+    public bool Draw { get; set; }
+
+    public ShapeData( string id, Shape shape, bool draw )
+    {
+        Id = id;
+        Shape = shape;
+        Draw = draw;
     }
 }

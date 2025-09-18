@@ -15,29 +15,7 @@ public class ShapeParser
     private const int _textParamsLength = 4;
 
     private string _shapeColor = "ffffff";
-
-    public string ValidateColor( string possibleColor )
-    {
-        var hexColorRegex = new Regex( "^#?[0-9A-Fa-f]{6}$" );
-
-        if ( !hexColorRegex.IsMatch( possibleColor ) )
-        {
-            throw new Exception( "Invalid hex color format. It should be in the format #RRGGBB." );
-        }
-
-        return possibleColor;
-    }
-    public double ParseDouble( string value )
-    {
-        if ( double.TryParse( value, NumberStyles.Any, CultureInfo.InvariantCulture, out double result ) )
-        { 
-            return result;
-        }
-
-        throw new Exception( $"'{value}' is not a valid number" );
-    }
-
-    public BaseDrawingStrategy Parse( string[] parseParams, string color )
+    public BaseDrawingStrategy ParseDrawingStrategy( string[] parseParams, string color )
     {
         if ( parseParams.Length == 0 )
         {
@@ -45,6 +23,7 @@ public class ShapeParser
         }
 
         _shapeColor = ValidateColor( color ).Replace( "#", "" );
+
         var shapeType = parseParams[ 0 ];
         var shapeParams = parseParams.Skip( 1 ).ToArray();
 
@@ -57,6 +36,28 @@ public class ShapeParser
             "line" => new LineDrawingStrategy( ParseLineParams( shapeParams ) ),
             _ => throw new Exception( "Unknown type of shape" )
         };
+    }
+
+    public string ValidateColor( string possibleColor )
+    {
+        var hexColorRegex = new Regex( "^#?[0-9A-Fa-f]{6}$" );
+
+        if ( !hexColorRegex.IsMatch( possibleColor ) )
+        {
+            throw new Exception( "Invalid hex color format. Format must be #RRGGBB." );
+        }
+
+        return possibleColor;
+    }
+
+    public double ParseDouble( string value )
+    {
+        if ( double.TryParse( value, NumberStyles.Any, CultureInfo.InvariantCulture, out double result ) )
+        { 
+            return result;
+        }
+
+        throw new Exception( $"{value} is not a valid number" );
     }
 
     private RectangleParams ParseRectangleParams( string[] unparsedParams )
@@ -93,7 +94,6 @@ public class ShapeParser
         {
             throw new Exception( $"Params length for triangle must be {_triangleParamsLength}" );
         }
-
 
         var firstVertex = new Point( ParseInt( unparsedParams[ 0 ] ), ParseInt( unparsedParams[ 1 ] ) );
         var secondVertex = new Point( ParseInt( unparsedParams[ 2 ] ), ParseInt( unparsedParams[ 3 ] ) );
@@ -136,6 +136,6 @@ public class ShapeParser
             return result;
         }
 
-        throw new Exception( $"'{value}' is not a valid number" );
+        throw new Exception( $"{value} is not a valid number" );
     }
 }

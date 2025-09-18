@@ -1,4 +1,6 @@
-﻿namespace Shapes.ShapesManager.Commands;
+﻿using Shapes.ShapesManager.Commands;
+
+namespace Shapes.ShapesManager.Factories;
 
 public class CommandFactory
 {

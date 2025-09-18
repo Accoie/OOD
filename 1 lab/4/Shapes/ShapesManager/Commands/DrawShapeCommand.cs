@@ -11,7 +11,13 @@ public class DrawShapeCommand : ICommand
 
     public void Execute( string[] args )
     {
-        string id = args[ 0 ];
+        if (args.Length < 1)
+        {
+            throw new Exception( "Invalid command format! Must be: DrawShape <id>" );
+        }
+
+        var id = args[ 0 ];
+
         _commandContext.Picture.DrawShape( id );
     }
 }

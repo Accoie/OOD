@@ -11,8 +11,14 @@ public class ChangeColorCommand : ICommand
 
     public void Execute( string[] args )
     {
-        string id = args[ 0 ];
-        string color = _commandContext.ShapeParser.ValidateColor( args[ 1 ] );
+        if ( args.Length < 1 )
+        {
+            throw new Exception( "Invalid command format! Must be: ChangeColor <id> <color>" );
+        }
+
+        var id = args[ 0 ];
+        var color = _commandContext.ShapeParser.ValidateColor( args[ 1 ] );
+
         _commandContext.Picture.ChangeColor( id, color );
     }
 }

@@ -28,7 +28,7 @@ public class TriangleDrawingStrategy : BaseDrawingStrategy
     {
         var vertices = ShapeParams.Vertices;
 
-        string finalString = "triangle - color: #" +
+        var info = "triangle - color: #" +
             ShapeParams.Color +
             " - firstVertex: " +
             vertices[ 0 ].ToString() +
@@ -37,6 +37,6 @@ public class TriangleDrawingStrategy : BaseDrawingStrategy
             " - thirdVertex: " +
             vertices[ 2 ].ToString();
 
-        return finalString;
+        return info;
     }
 }
