@@ -51,7 +51,7 @@ public class ShapeParser
         return possibleColor;
     }
 
-    public double ParseDouble( string value )
+    public static double ParseDouble( string value )
     {
         if ( double.TryParse( value, NumberStyles.Any, CultureInfo.InvariantCulture, out double result ) )
         { 

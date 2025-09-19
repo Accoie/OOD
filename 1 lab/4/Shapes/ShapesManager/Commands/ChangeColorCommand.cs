@@ -1,15 +1,15 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class ChangeColorCommand : IShapeCommand
+public class ChangeColorCommand : BasePictureCommand, IShapeCommand
 {
-    public CommandContext Context { get; }
+    private ShapeParser _parser;
 
-    public ChangeColorCommand( CommandContext commandContext )
+    public ChangeColorCommand( Picture picture, ShapeParser parser ) : base( picture )
     {
-        Context = commandContext;
+        _parser = parser;
     }
 
-    public void Execute( string[] args )
+    public override void Execute( string[] args )
     {
         if ( args.Length < 1 )
         {
@@ -17,8 +17,8 @@ public class ChangeColorCommand : IShapeCommand
         }
 
         var id = args[ 0 ];
-        var color = Context.ShapeParser.ValidateColor( args[ 1 ] );
+        var color = _parser.ValidateColor( args[ 1 ] );
 
-        Context.Picture.ChangeColor( id, color );
+        _picture.ChangeColor( id, color );
     }
 }

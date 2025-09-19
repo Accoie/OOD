@@ -1,4 +1,4 @@
-﻿namespace Shapes.ShapesManager.Commands;
+﻿namespace Shapes.ShapesManager.Factories;
 
 public class CommandContext
 {

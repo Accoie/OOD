@@ -1,27 +1,27 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class ChangeShapeCommand : IShapeCommand
+public class ChangeShapeCommand : BasePictureCommand, IShapeCommand
 {
-    public CommandContext Context { get; }
+    private ShapeParser _parser;
 
-    public ChangeShapeCommand( CommandContext commandContext )
+    public ChangeShapeCommand( Picture picture, ShapeParser parser ) : base( picture )
     {
-        Context = commandContext;
+        _parser = parser;
     }
 
-    public void Execute( string[] args )
+    public override void Execute( string[] args )
     {
-        if (args.Length < 1 )
+        if ( args.Length < 1 )
         {
             throw new Exception( "Invalid command format! Must be: ChangeShape <id> <shapeType> <parameters>" );
         }
 
         var id = args[ 0 ];
         var unparsedParams = args.Skip( 1 ).ToArray();
-        var color = Context.Picture.GetShapeColorById( id );
+        var color = _picture.GetShapeColorById( id );
 
-        var drawingStrategy = Context.ShapeParser.ParseDrawingStrategy( unparsedParams, color );
+        var drawingStrategy = _parser.ParseDrawingStrategy( unparsedParams, color );
 
-        Context.Picture.ChangeShape( id, drawingStrategy );
+        _picture.ChangeShape( id, drawingStrategy );
     }
 }

@@ -1,16 +1,14 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class DrawPictureCommand : IShapeCommand
+public class DrawPictureCommand : BasePictureCommand, IShapeCommand
 {
-    public CommandContext Context { get; }
-
-    public DrawPictureCommand( CommandContext commandContext )
+    public DrawPictureCommand( Picture picture) : base( picture )
     {
-        Context = commandContext;
+        _picture = picture;
     }
 
-    public void Execute( string[] args )
+    public override void Execute( string[] args )
     {
-        Context.Picture.DrawPicture();
+        _picture.DrawPicture();
     }
 }

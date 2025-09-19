@@ -1,15 +1,12 @@
 ﻿namespace Shapes.ShapesManager.Commands;
 
-public class MoveShapeCommand : IShapeCommand
+public class MoveShapeCommand : BasePictureCommand, IShapeCommand
 {
-    public CommandContext Context { get; }
-
-    public MoveShapeCommand( CommandContext commandContext )
+    public MoveShapeCommand( Picture picture ) : base( picture )
     {
-        Context = commandContext;
     }
 
-    public void Execute( string[] args )
+    public override void Execute( string[] args )
     {
         if ( args.Length < 3)
         {
@@ -17,9 +14,9 @@ public class MoveShapeCommand : IShapeCommand
         }
 
         var id = args[ 0 ];
-        var dx = Context.ShapeParser.ParseDouble( args[ 1 ] );
-        var dy = Context.ShapeParser.ParseDouble( args[ 2 ] );
+        var dx = ShapeParser.ParseDouble( args[ 1 ] );
+        var dy = ShapeParser.ParseDouble( args[ 2 ] );
 
-        Context.Picture.MoveShape( id, dx, dy );
+        _picture.MoveShape( id, dx, dy );
     }
 }

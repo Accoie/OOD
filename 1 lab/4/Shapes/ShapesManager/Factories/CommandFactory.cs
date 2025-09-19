@@ -4,26 +4,26 @@ namespace Shapes.ShapesManager.Factories;
 
 public class CommandFactory
 {
-    private readonly CommandContext _commandContext;
+    private readonly CommandContext _context;
 
     public CommandFactory( CommandContext commandContext )
     {
-        _commandContext = commandContext;
+        _context = commandContext;
     }
 
     public IShapeCommand Create( string commandName )
     {
         return commandName.ToLower() switch
         {
-            "addshape" => new AddShapeCommand( _commandContext ),
-            "changeshape" => new ChangeShapeCommand( _commandContext ),
-            "changecolor" => new ChangeColorCommand( _commandContext ),
-            "deleteshape" => new DeleteShapeCommand( _commandContext ),
-            "moveshape" => new MoveShapeCommand( _commandContext ),
-            "movepicture" => new MovePictureCommand( _commandContext ),
-            "drawshape" => new DrawShapeCommand( _commandContext ),
-            "drawpicture" => new DrawPictureCommand( _commandContext ),
-            "list" => new ListCommand( _commandContext ),
+            "addshape" => new AddShapeCommand( _context.Picture, _context.ShapeParser ),
+            "changeshape" => new ChangeShapeCommand( _context.Picture, _context.ShapeParser ),
+            "changecolor" => new ChangeColorCommand( _context.Picture, _context.ShapeParser ),
+            "deleteshape" => new DeleteShapeCommand( _context.Picture ),
+            "moveshape" => new MoveShapeCommand( _context.Picture ),
+            "movepicture" => new MovePictureCommand( _context.Picture ),
+            "drawshape" => new DrawShapeCommand( _context.Picture ),
+            "drawpicture" => new DrawPictureCommand( _context.Picture ),
+            "list" => new ListCommand( _context.Picture ),
             _ => throw new InvalidOperationException( $"Unknown command: {commandName}" )
         };
     }

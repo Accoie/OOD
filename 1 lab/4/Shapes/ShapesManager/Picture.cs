@@ -6,7 +6,7 @@ namespace Shapes.ShapesManager;
 
 public class Picture
 {
-    private List<ShapeData> _shapes = new List<ShapeData>();
+    private List<ShapeData> _shapes = new();
     private readonly ICanvas _canvas;
 
     public Picture( ICanvas canvas )

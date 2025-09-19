@@ -5,10 +5,10 @@ using ShapesCanvas;
 
 public class ShapesApplication
 {
-    private const int WindowWidth = 800;
-    private const int WindowHeight = 600;
-    private const string WindowTitle = "Shapes!";
-    private const uint FrameRateLimit = 60;
+    private const int _windowWidth = 800;
+    private const int _windowHeight = 600;
+    private const string _windowTitle = "Shapes!";
+    private const uint _frameRateLimit = 60;
 
     private RenderWindow _renderWindow;
     private ShapesManager _shapesManager;
@@ -30,16 +30,16 @@ public class ShapesApplication
 
     private RenderWindow CreateRenderWindow()
     {
-        var videoMode = new VideoMode( WindowWidth, WindowHeight );
+        var videoMode = new VideoMode( _windowWidth, _windowHeight );
 
-        var renderWindow = new RenderWindow( videoMode, WindowTitle ); ;
+        var renderWindow = new RenderWindow( videoMode, _windowTitle ); ;
 
         return renderWindow;
     }
 
     private void ConfigureWindow()
     {
-        _renderWindow.SetFramerateLimit( FrameRateLimit );
+        _renderWindow.SetFramerateLimit( _frameRateLimit );
     }
 
     private void RunMainLoop()

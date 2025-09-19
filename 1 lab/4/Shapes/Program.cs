@@ -1,9 +1,4 @@
-﻿using SFML.Graphics;
-using Shapes.Canvas;
-using Shapes.ShapesManager;
-using ShapesCanvas;
-
-public class Program
+﻿public class Program
 {
     private static void Main( string[] args )
     {
