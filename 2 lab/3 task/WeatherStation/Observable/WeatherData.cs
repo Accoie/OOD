@@ -1,0 +1,36 @@
+﻿using WeatherStation.Info;
+
+namespace WeatherStation.Observable;
+
+public class WeatherData : Observable<WeatherInfo>
+{
+    public string Name { get; private init; }
+
+    public double Temperature { get; private set; } = 0;
+    public double Humidity { get; private set; } = 0;
+    public double Pressure { get; private set; } = 760;
+
+    protected override WeatherInfo GetChangedData()
+    {
+        return new WeatherInfo
+        {
+            humidity = Humidity,
+            pressure = Pressure,
+            temperature = Temperature
+        };
+    }
+
+    public void MeasurementsChanged()
+    {
+        NotifyObservers();
+    }
+
+    public void SetMeasurements( double temperature, double humidity, double pressure )
+    {
+        Temperature = temperature;
+        Humidity = humidity;
+        Pressure = pressure;
+
+        MeasurementsChanged();
+    }
+}
