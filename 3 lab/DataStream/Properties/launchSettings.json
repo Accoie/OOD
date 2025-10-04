@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DataStream": {
+      "commandName": "Project",
+      "commandLineArgs": "--decrypt 7 --decompress compressed-output.txt de.txt"
+    }
+  }
+}
