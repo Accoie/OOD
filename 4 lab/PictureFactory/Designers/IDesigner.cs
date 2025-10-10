@@ -4,6 +4,6 @@ namespace PictureFactory.Designers
 {
     public interface IDesigner
     {
-        IPictureDraft CreateDraft( Stream stream );
+        PictureDraft CreateDraft( Stream stream );
     }
 }

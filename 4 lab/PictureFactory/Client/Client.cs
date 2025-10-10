@@ -13,8 +13,8 @@ namespace PictureFactory.Client
             IShapeFactory factory = new ShapeFactory();
             IDesigner designer = new Designer( factory );
             ICanvas canvas = new Canvas();
-            IPainter painter = new Painter();
-            IPictureDraft draft = designer.CreateDraft( Console.OpenStandardInput() );
+            Painter painter = new Painter();
+            PictureDraft draft = designer.CreateDraft( Console.OpenStandardInput() );
             painter.DrawPicture( draft, canvas );
         }
     }

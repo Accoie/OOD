@@ -14,9 +14,9 @@ namespace PictureFactory.Designers
             _shapeFactory = shapeFactory;
         }
 
-        public IPictureDraft CreateDraft( Stream stream )
+        public PictureDraft CreateDraft( Stream stream )
         {
-            IPictureDraft draft = new PictureDraft();
+            PictureDraft draft = new PictureDraft();
 
             using StreamReader reader = new( stream, Encoding.UTF8, leaveOpen: true );
 

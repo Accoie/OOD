@@ -12,13 +12,6 @@ namespace PictureFactory.Factories
         private const int _regularPolygonParamsCount = 3;
         private const int _minParamsCount = 4;
 
-        private Dictionary<string, ShapeType> _shapesStrMap = new(){
-            {"rect", ShapeType.Rectangle},
-            {"triangle", ShapeType.Triangle},
-            {"reg-polygon", ShapeType.RegularPolygon},
-            {"ellipse", ShapeType.Ellipse},
-        };
-
         public ShapeParams ParseShapeParams( string descr )
         {
             if ( string.IsNullOrEmpty( descr ) )
@@ -124,6 +117,13 @@ namespace PictureFactory.Factories
 
         private ShapeType ParseShapeType( string typeStr )
         {
+            Dictionary<string, ShapeType> _shapesStrMap = new(){
+            {"rect", ShapeType.Rectangle},
+            {"triangle", ShapeType.Triangle},
+            {"reg-polygon", ShapeType.RegularPolygon},
+            {"ellipse", ShapeType.Ellipse},
+        };
+
             bool isParsed = _shapesStrMap.TryGetValue( typeStr.Trim().ToLower(), out ShapeType type );
 
             if ( !isParsed )

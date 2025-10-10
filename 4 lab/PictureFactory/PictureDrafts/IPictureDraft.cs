@@ -6,6 +6,5 @@ namespace PictureFactory.PictureDrafts
     {
         public int GetShapesSize();
         public Shape GetShape( int index );
-        public void AddShape( Shape shape );
     }
 }

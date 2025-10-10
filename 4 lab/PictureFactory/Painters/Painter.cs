@@ -4,9 +4,9 @@ using PictureFactory.Shapes;
 
 namespace PictureFactory.Painters
 {
-    public class Painter : IPainter
+    public class Painter
     {
-        public void DrawPicture( IPictureDraft draft, ICanvas canvas )
+        public void DrawPicture( PictureDraft draft, ICanvas canvas )
         {
             for ( int i = 0; i < draft.GetShapesSize(); i++ )
             {

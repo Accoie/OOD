@@ -90,7 +90,7 @@ namespace PictureFactory.Tests
         }
 
         [Test]
-        public void AddShape_AddsShapeToDraft()
+        public void AddShape_AddsShapeToDraft_WillAdded()
         {
             // Arrange
             PictureDraft draft = new PictureDraft();
@@ -109,7 +109,7 @@ namespace PictureFactory.Tests
         {
             // Arrange
             PictureDraft draft = new PictureDraft();
-            Shape[] shapes = new[]
+            Shape[] shapes =
             {
                 new Mock<Shape>(Color.Red).Object,
                 new Mock<Shape>(Color.Red).Object,

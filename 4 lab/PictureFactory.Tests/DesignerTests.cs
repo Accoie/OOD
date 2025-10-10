@@ -25,25 +25,10 @@ namespace PictureFactory.Tests
             Stream stream = CreateStreamWithLines( "exit" );
 
             // Act
-            IPictureDraft result = _designer.CreateDraft( stream );
+            PictureDraft result = _designer.CreateDraft( stream );
 
             // Assert
-            Assert.That( result, Is.Not.Null );
-            Assert.That( result, Is.InstanceOf<IPictureDraft>() );
             Assert.That( result.GetShapesSize(), Is.EqualTo( 0 ) );
-        }
-
-        [Test]
-        public void CreateDraft_StreamReaderUsesCorrectEncoding()
-        {
-            // Arrange
-            Stream stream = CreateStreamWithLines( "exit" );
-
-            // Act
-            IPictureDraft result = _designer.CreateDraft( stream );
-
-            // Assert
-            Assert.That( result, Is.Not.Null );
         }
 
         [Test]
