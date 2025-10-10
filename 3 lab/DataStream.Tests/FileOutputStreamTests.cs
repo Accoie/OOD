@@ -28,7 +28,7 @@ public class FileOutputStreamTests
     {
         // Arrange
         string tempFile = CreateTempFile();
-        using var fileOutputStream = new FileOutputStream( tempFile );
+        using FileOutputStream fileOutputStream = new FileOutputStream( tempFile );
         byte testByte = 0x41;
 
         // Act
@@ -48,7 +48,7 @@ public class FileOutputStreamTests
     {
         // Arrange
         string tempFile = CreateTempFile();
-        using var fileOutputStream = new FileOutputStream( tempFile );
+        using FileOutputStream fileOutputStream = new FileOutputStream( tempFile );
         byte[] testData = { 0x41, 0x42, 0x43, 0x44 };
 
         // Act
@@ -67,7 +67,7 @@ public class FileOutputStreamTests
     {
         // Arrange
         string tempFile = CreateTempFile();
-        using var fileOutputStream = new FileOutputStream( tempFile );
+        using FileOutputStream fileOutputStream = new FileOutputStream( tempFile );
         byte[] testData = { 0x41, 0x42, 0x43, 0x44, 0x45 };
         int partialSize = 3;
 
@@ -88,7 +88,7 @@ public class FileOutputStreamTests
     {
         // Arrange
         string tempFile = CreateTempFile();
-        using var fileOutputStream = new FileOutputStream( tempFile );
+        using FileOutputStream fileOutputStream = new FileOutputStream( tempFile );
         byte[] testData = { 0x41, 0x42, 0x43 };
 
         // Act
@@ -107,7 +107,7 @@ public class FileOutputStreamTests
     {
         // Arrange
         string tempFile = CreateTempFile();
-        var fileOutputStream = new FileOutputStream( tempFile );
+        FileOutputStream fileOutputStream = new FileOutputStream( tempFile );
 
         // Act
         fileOutputStream.Dispose();
@@ -124,7 +124,7 @@ public class FileOutputStreamTests
     {
         // Arrange
         string tempFile = CreateTempFile();
-        using var fileOutputStream = new FileOutputStream( tempFile );
+        using FileOutputStream fileOutputStream = new FileOutputStream( tempFile );
 
         // Act
         fileOutputStream.WriteByte( 0x41 );
@@ -144,7 +144,7 @@ public class FileOutputStreamTests
     {
         // Arrange
         string tempFile = CreateTempFile();
-        using var fileOutputStream = new FileOutputStream( tempFile );
+        using FileOutputStream fileOutputStream = new FileOutputStream( tempFile );
         byte[] largeData = new byte[ 1000 ];
         for ( int i = 0; i < largeData.Length; i++ )
         {

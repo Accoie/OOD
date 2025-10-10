@@ -17,8 +17,8 @@ public class CommandHandler
 
     public void HandleOptions( string[] options )
     {
-        var inputDecorators = new List<Func<IInputStream, IInputStream>>();
-        var outputDecorators = new List<Func<IOutputStream, IOutputStream>>();
+        List<Func<IInputStream, IInputStream>> inputDecorators = new();
+        List<Func<IOutputStream, IOutputStream>> outputDecorators = new();
 
         int optionsRead = 0;
 
@@ -29,7 +29,9 @@ public class CommandHandler
                 case "--encrypt":
                     {
                         if ( optionsRead >= options.Length )
+                        {
                             throw new Exception( "There is not key for encrypt" );
+                        }
 
                         int key = TryParseKey( options[ optionsRead++ ] );
                         outputDecorators.Add( stream => new OutputEncrypt( stream, key ) );
@@ -38,7 +40,9 @@ public class CommandHandler
                 case "--decrypt":
                     {
                         if ( optionsRead >= options.Length )
+                        {
                             throw new Exception( "There is not key for decrypt" );
+                        }
 
                         int key = TryParseKey( options[ optionsRead++ ] );
                         inputDecorators.Add( stream => new InputDecrypt( stream, key ) );
@@ -64,7 +68,7 @@ public class CommandHandler
             _inputStream = inputDecorators[ i ]( _inputStream );
         }
 
-        foreach ( var decorator in outputDecorators )
+        foreach ( Func<IOutputStream, IOutputStream> decorator in outputDecorators )
         {
             _outputStream = decorator( _outputStream );
         }

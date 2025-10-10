@@ -11,10 +11,10 @@ public class DecryptTests
     public void ReadByte_DecryptsDataCorrectly()
     {
         // Arrange
-        var mockInputStream = new Mock<IInputStream>();
+        Mock<IInputStream> mockInputStream = new Mock<IInputStream>();
         int key = 12345;
-        var decryptTable = ReplaceTableCreator.CreateDecryptTable( key );
-        var inputDecrypt = new InputDecrypt( mockInputStream.Object, key );
+        Dictionary<byte, byte> decryptTable = ReplaceTableCreator.CreateDecryptTable( key );
+        InputDecrypt inputDecrypt = new InputDecrypt( mockInputStream.Object, key );
 
         byte encryptedByte = 0x87;
         byte expectedDecryptedByte = decryptTable[ encryptedByte ];
@@ -33,10 +33,10 @@ public class DecryptTests
     public void ReadBlock_DecryptsAllBytesInArray()
     {
         // Arrange
-        var mockInputStream = new Mock<IInputStream>();
+        Mock<IInputStream> mockInputStream = new Mock<IInputStream>();
         int key = 12345;
-        var decryptTable = ReplaceTableCreator.CreateDecryptTable( key );
-        var inputDecrypt = new InputDecrypt( mockInputStream.Object, key );
+        Dictionary<byte, byte> decryptTable = ReplaceTableCreator.CreateDecryptTable( key );
+        InputDecrypt inputDecrypt = new InputDecrypt( mockInputStream.Object, key );
 
         byte[] encryptedData = { 0x87, 0xAB, 0xCD, 0xEF };
         byte[] expectedDecryptedData = new byte[ encryptedData.Length ];
@@ -45,7 +45,7 @@ public class DecryptTests
             expectedDecryptedData[ i ] = decryptTable[ encryptedData[ i ] ];
         }
 
-        var sequence = new MockSequence();
+        MockSequence sequence = new MockSequence();
         foreach ( byte encryptedByte in encryptedData )
         {
             mockInputStream.InSequence( sequence ).Setup( x => x.ReadByte() ).Returns( encryptedByte );
@@ -66,15 +66,15 @@ public class DecryptTests
     public void ReadBlock_WithPartialData_DecryptsOnlySpecifiedSize()
     {
         // Arrange
-        var mockInputStream = new Mock<IInputStream>();
+        Mock<IInputStream> mockInputStream = new Mock<IInputStream>();
         int key = 12345;
-        var decryptTable = ReplaceTableCreator.CreateDecryptTable( key );
-        var inputDecrypt = new InputDecrypt( mockInputStream.Object, key );
+        Dictionary<byte, byte> decryptTable = ReplaceTableCreator.CreateDecryptTable( key );
+        InputDecrypt inputDecrypt = new InputDecrypt( mockInputStream.Object, key );
 
         byte[] encryptedData = { 0x87, 0xAB, 0xCD, 0xEF, 0x12 };
         int requestedSize = 3;
 
-        var sequence = new MockSequence();
+        MockSequence sequence = new MockSequence();
         for ( int i = 0; i < requestedSize; i++ )
         {
             mockInputStream.InSequence( sequence ).Setup( x => x.ReadByte() ).Returns( encryptedData[ i ] );
@@ -101,9 +101,9 @@ public class DecryptTests
     public void ReadBlock_WithZeroSize_DoesNotReadAnything()
     {
         // Arrange
-        var mockInputStream = new Mock<IInputStream>();
+        Mock<IInputStream> mockInputStream = new Mock<IInputStream>();
         int key = 12345;
-        var inputDecrypt = new InputDecrypt( mockInputStream.Object, key );
+        InputDecrypt inputDecrypt = new InputDecrypt( mockInputStream.Object, key );
 
         byte[] destinationBuffer = new byte[ 10 ];
 

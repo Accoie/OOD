@@ -10,14 +10,14 @@ public class CompressTests
     public void WriteBlock_WithDefaultData_WillCompressed()
     {
         // Arrange
-        var originalData = new byte[] { 1, 1, 1, 2, 2, 3 };
+        byte[] originalData = new byte[] { 1, 1, 1, 2, 2, 3 };
 
-        var outputMock = new Mock<IOutputStream>();
+        Mock<IOutputStream> outputMock = new Mock<IOutputStream>();
 
         List<byte> compressedData = new();
 
         outputMock.Setup( m => m.WriteByte( It.IsAny<byte>() ) ).Callback<byte>( compressedData.Add );
-        var compressor = new OutputCompress( outputMock.Object );
+        OutputCompress compressor = new OutputCompress( outputMock.Object );
 
         //Act
         compressor.WriteBlock( originalData, originalData.Length );

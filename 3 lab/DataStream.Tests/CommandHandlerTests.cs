@@ -35,9 +35,9 @@ public class CommandHandlerTests
         string outputFile = CreateTempFile();
 
 
-        var inputStream = new FileInputStream( inputFile );
-        using var outputStream = new FileOutputStream( outputFile );
-        var commandHandler = new CommandHandler( inputStream, outputStream );
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using FileOutputStream outputStream = new FileOutputStream( outputFile );
+        CommandHandler commandHandler = new CommandHandler( inputStream, outputStream );
         string[] options = { "--compress" };
 
         // Act
@@ -59,9 +59,9 @@ public class CommandHandlerTests
         string outputFile = CreateTempFile();
 
 
-        var inputStream = new FileInputStream( inputFile );
-        using var outputStream = new FileOutputStream( outputFile );
-        var commandHandler = new CommandHandler( inputStream, outputStream );
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using FileOutputStream outputStream = new FileOutputStream( outputFile );
+        CommandHandler commandHandler = new CommandHandler( inputStream, outputStream );
         string[] options = { "--decompress" };
 
         // Act
@@ -84,10 +84,10 @@ public class CommandHandlerTests
         string outputFile2 = CreateTempFile();
         int key = 42;
 
-        var inputStream = new FileInputStream( inputFile );
-        using ( var outputStream = new FileOutputStream( outputFile1 ) )
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using ( FileOutputStream outputStream = new FileOutputStream( outputFile1 ) )
         {
-            var encryptHandler = new CommandHandler( inputStream, outputStream );
+            CommandHandler encryptHandler = new CommandHandler( inputStream, outputStream );
             string[] encryptOptions = { "--encrypt", key.ToString() };
             encryptHandler.HandleOptions( encryptOptions );
         }
@@ -98,9 +98,9 @@ public class CommandHandlerTests
         File.WriteAllBytes( inputFile, encryptedData );
 
         inputStream = new FileInputStream( inputFile );
-        using ( var outputStream = new FileOutputStream( outputFile2 ) )
+        using ( FileOutputStream outputStream = new FileOutputStream( outputFile2 ) )
         {
-            var decryptHandler = new CommandHandler( inputStream, outputStream );
+            CommandHandler decryptHandler = new CommandHandler( inputStream, outputStream );
             string[] decryptOptions = { "--decrypt", key.ToString() };
 
             // Act
@@ -121,10 +121,10 @@ public class CommandHandlerTests
         string outputFile1 = CreateTempFile();
         string outputFile2 = CreateTempFile();
 
-        var inputStream = new FileInputStream( inputFile );
-        using ( var outputStream = new FileOutputStream( outputFile1 ) )
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using ( FileOutputStream outputStream = new FileOutputStream( outputFile1 ) )
         {
-            var compressHandler = new CommandHandler( inputStream, outputStream );
+            CommandHandler compressHandler = new CommandHandler( inputStream, outputStream );
             string[] compressOptions = { "--compress" };
             compressHandler.HandleOptions( compressOptions );
         }
@@ -134,9 +134,9 @@ public class CommandHandlerTests
         File.WriteAllBytes( inputFile, compressedData );
 
         inputStream = new FileInputStream( inputFile );
-        using ( var outputStream = new FileOutputStream( outputFile2 ) )
+        using ( FileOutputStream outputStream = new FileOutputStream( outputFile2 ) )
         {
-            var decompressHandler = new CommandHandler( inputStream, outputStream );
+            CommandHandler decompressHandler = new CommandHandler( inputStream, outputStream );
             string[] decompressOptions = { "--decompress" };
 
             // Act
@@ -161,17 +161,17 @@ public class CommandHandlerTests
         int encryptKey = 7;
 
         // Act 
-        var inputStream1 = new FileInputStream( inputFile );
-        using ( var outputStream1 = new FileOutputStream( encryptedFile) )
+        FileInputStream inputStream1 = new FileInputStream( inputFile );
+        using ( FileOutputStream outputStream1 = new FileOutputStream( encryptedFile ) )
         {
-            var commandHandler1 = new CommandHandler( inputStream1, outputStream1 );
+            CommandHandler commandHandler1 = new CommandHandler( inputStream1, outputStream1 );
             commandHandler1.HandleOptions([ "--compress", "--encrypt", encryptKey.ToString() ]);
         }
 
-        var inputStream2 = new FileInputStream( encryptedFile );
-        using ( var outputStream2 = new FileOutputStream( decryptedFile ) )
+        FileInputStream inputStream2 = new FileInputStream( encryptedFile );
+        using ( FileOutputStream outputStream2 = new FileOutputStream( decryptedFile ) )
         {
-            var commandHandler2 = new CommandHandler( inputStream2, outputStream2 );
+            CommandHandler commandHandler2 = new CommandHandler( inputStream2, outputStream2 );
             commandHandler2.HandleOptions( [  "--decrypt", encryptKey.ToString(), "--decompress" ] );
         }
 
@@ -187,9 +187,9 @@ public class CommandHandlerTests
         string inputFile = CreateTempFileWithText( "test" );
         string outputFile = CreateTempFile();
 
-        var inputStream = new FileInputStream( inputFile );
-        using var outputStream = new FileOutputStream( outputFile );
-        var commandHandler = new CommandHandler( inputStream, outputStream );
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using FileOutputStream outputStream = new FileOutputStream( outputFile );
+        CommandHandler commandHandler = new CommandHandler( inputStream, outputStream );
         string[] options = { "--encrypt" };
 
         // Act & Assert
@@ -205,9 +205,9 @@ public class CommandHandlerTests
         string outputFile = CreateTempFile();
 
 
-        var inputStream = new FileInputStream( inputFile );
-        using var outputStream = new FileOutputStream( outputFile );
-        var commandHandler = new CommandHandler( inputStream, outputStream );
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using FileOutputStream outputStream = new FileOutputStream( outputFile );
+        CommandHandler commandHandler = new CommandHandler( inputStream, outputStream );
         string[] options = { "--decrypt" };
 
         // Act & Assert
@@ -223,9 +223,9 @@ public class CommandHandlerTests
         string outputFile = CreateTempFile();
 
 
-        var inputStream = new FileInputStream( inputFile );
-        using var outputStream = new FileOutputStream( outputFile );
-        var commandHandler = new CommandHandler( inputStream, outputStream );
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using FileOutputStream outputStream = new FileOutputStream( outputFile );
+        CommandHandler commandHandler = new CommandHandler( inputStream, outputStream );
         string[] options = { "--unknown-option" };
 
         // Act & Assert
@@ -242,9 +242,9 @@ public class CommandHandlerTests
         string outputFile = CreateTempFile();
 
 
-        var inputStream = new FileInputStream( inputFile );
-        using var outputStream = new FileOutputStream( outputFile );
-        var commandHandler = new CommandHandler( inputStream, outputStream );
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using FileOutputStream outputStream = new FileOutputStream( outputFile );
+        CommandHandler commandHandler = new CommandHandler( inputStream, outputStream );
         string[] options = { };
 
         // Act
@@ -265,9 +265,9 @@ public class CommandHandlerTests
         string outputFile = CreateTempFile();
 
 
-        var inputStream = new FileInputStream( inputFile );
-        using var outputStream = new FileOutputStream( outputFile );
-        var commandHandler = new CommandHandler( inputStream, outputStream );
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using FileOutputStream outputStream = new FileOutputStream( outputFile );
+        CommandHandler commandHandler = new CommandHandler( inputStream, outputStream );
         string[] options = { "--compress" };
 
         // Act
@@ -292,9 +292,9 @@ public class CommandHandlerTests
         string outputFile = CreateTempFile();
 
 
-        var inputStream = new FileInputStream( inputFile );
-        using var outputStream = new FileOutputStream( outputFile );
-        var commandHandler = new CommandHandler( inputStream, outputStream );
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using FileOutputStream outputStream = new FileOutputStream( outputFile );
+        CommandHandler commandHandler = new CommandHandler( inputStream, outputStream );
         string[] options = { "--compress" };
 
         // Act
@@ -314,9 +314,9 @@ public class CommandHandlerTests
         string inputFile = CreateTempFileWithText( "test" );
         string outputFile = CreateTempFile();
 
-        var inputStream = new FileInputStream( inputFile );
-        using var outputStream = new FileOutputStream( outputFile );
-        var commandHandler = new CommandHandler( inputStream, outputStream );
+        FileInputStream inputStream = new FileInputStream( inputFile );
+        using FileOutputStream outputStream = new FileOutputStream( outputFile );
+        CommandHandler commandHandler = new CommandHandler( inputStream, outputStream );
         string[] options = { "--encrypt", "not-a-number" };
 
         // Act & Assert

@@ -11,10 +11,10 @@ public class EncryptTests
     public void WriteByte_EncryptsDataCorrectly_WillEncrypted()
     {
         // Arrange
-        var mockOutputStream = new Mock<IOutputStream>();
+        Mock<IOutputStream> mockOutputStream = new Mock<IOutputStream>();
         int key = 12345;
-        var encryptTable = ReplaceTableCreator.CreateEncryptTable( key );
-        var outputEncrypt = new OutputEncrypt( mockOutputStream.Object, key );
+        Dictionary<byte, byte> encryptTable = ReplaceTableCreator.CreateEncryptTable( key );
+        OutputEncrypt outputEncrypt = new OutputEncrypt( mockOutputStream.Object, key );
         byte testByte = 0x41;
         byte expectedEncryptedByte = encryptTable[ testByte ];
 
@@ -29,10 +29,10 @@ public class EncryptTests
     public void WriteBlock_EncryptsAllBytesInArray_WillEncrypted()
     {
         // Arrange
-        var mockOutputStream = new Mock<IOutputStream>();
+        Mock<IOutputStream> mockOutputStream = new Mock<IOutputStream>();
         int key = 12345;
-        var encryptTable = ReplaceTableCreator.CreateEncryptTable( key );
-        var outputEncrypt = new OutputEncrypt( mockOutputStream.Object, key );
+        Dictionary<byte, byte> encryptTable = ReplaceTableCreator.CreateEncryptTable( key );
+        OutputEncrypt outputEncrypt = new OutputEncrypt( mockOutputStream.Object, key );
 
         byte[] testData = { 0x41, 0x42, 0x43, 0x44 };
         int dataSize = testData.Length;
@@ -49,7 +49,7 @@ public class EncryptTests
         // Assert
         mockOutputStream.Verify( x => x.WriteByte( It.IsAny<byte>() ), Times.Exactly( dataSize ) );
 
-        foreach ( var expectedByte in expectedEncryptedData )
+        foreach ( byte expectedByte in expectedEncryptedData )
         {
             mockOutputStream.Verify( x => x.WriteByte( expectedByte ), Times.Once );
         }
@@ -59,10 +59,10 @@ public class EncryptTests
     public void WriteBlock_WithPartialData_EncryptsOnlySpecifiedSize()
     {
         // Arrange
-        var mockOutputStream = new Mock<IOutputStream>();
+        Mock<IOutputStream> mockOutputStream = new Mock<IOutputStream>();
         int key = 12345;
-        var encryptTable = ReplaceTableCreator.CreateEncryptTable( key );
-        var outputEncrypt = new OutputEncrypt( mockOutputStream.Object, key );
+        Dictionary<byte, byte> encryptTable = ReplaceTableCreator.CreateEncryptTable( key );
+        OutputEncrypt outputEncrypt = new OutputEncrypt( mockOutputStream.Object, key );
 
         byte[] testData = { 0x41, 0x42, 0x43, 0x44, 0x45 };
         int partialSize = 3;
@@ -84,9 +84,9 @@ public class EncryptTests
     public void WriteBlock_WithZeroSize_WillNotWriteAnything()
     {
         // Arrange
-        var mockOutputStream = new Mock<IOutputStream>();
+        Mock<IOutputStream> mockOutputStream = new Mock<IOutputStream>();
         int key = 12345;
-        var outputEncrypt = new OutputEncrypt( mockOutputStream.Object, key );
+        OutputEncrypt outputEncrypt = new OutputEncrypt( mockOutputStream.Object, key );
 
         byte[] testData = { 0x41, 0x42, 0x43 };
 
