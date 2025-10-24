@@ -4,23 +4,24 @@ namespace Slides.Styles.FillStyles
 {
     public class CompositeFillStyle : IFillStyle
     {
-        private IFillStyleEnumerator _fillStyles;
+        private Func<List<IFillStyle>> _getStyles;
 
-        public CompositeFillStyle( IFillStyleEnumerator styles )
+        public CompositeFillStyle( Func<List<IFillStyle>> getStyles )
         {
-            _fillStyles = styles;
+            _getStyles = getStyles;
         }
 
         public RGBAColor? GetColor()
         {
-            if ( _fillStyles.EnumerateAll().Count == 0 )
+            List<IFillStyle> styles = _getStyles();
+
+            if ( styles.Count == 0 )
             {
                 return null;
             }
 
-            IFillStyle firstElement = _fillStyles.EnumerateAll().First();
-
-            foreach ( IFillStyle style in _fillStyles.EnumerateAll() )
+            IFillStyle firstElement = styles.First();
+            foreach ( IFillStyle style in styles )
             {
                 if ( style.GetColor() != firstElement.GetColor() )
                 {
@@ -33,14 +34,14 @@ namespace Slides.Styles.FillStyles
 
         public bool? IsEnabled()
         {
-            if ( _fillStyles.EnumerateAll().Count == 0 )
+            List<IFillStyle> styles = _getStyles();
+            if ( styles.Count == 0 )
             {
                 return null;
             }
 
-            bool? firstElementEnabled = _fillStyles.EnumerateAll().First().IsEnabled();
-
-            foreach ( IFillStyle style in _fillStyles.EnumerateAll() )
+            bool? firstElementEnabled = styles.First().IsEnabled();
+            foreach ( IFillStyle style in styles )
             {
                 if ( style.IsEnabled() != firstElementEnabled )
                 {
@@ -53,7 +54,7 @@ namespace Slides.Styles.FillStyles
 
         public void SetColor( RGBAColor color )
         {
-            _fillStyles.EnumerateAll().ForEach( x => x.SetColor( color ) );
+            _getStyles().ForEach( x => x.SetColor( color ) );
         }
     }
 }

@@ -4,23 +4,23 @@ namespace Slides.Styles.LineStyles
 {
     public class CompositeLineStyle : ILineStyle
     {
-        private ILineStyleEnumerator _lineStyles;
+        private Func<List<ILineStyle>> _getStyles;
 
-        public CompositeLineStyle( ILineStyleEnumerator lineStyles )
+        public CompositeLineStyle( Func<List<ILineStyle>> getLineStyles )
         {
-            _lineStyles = lineStyles;
+            _getStyles = getLineStyles;
         }
 
         public RGBAColor? GetColor()
         {
-            if ( _lineStyles.EnumerateAll().Count == 0 )
+            List<ILineStyle> lineStyles = _getStyles();
+            if ( lineStyles.Count == 0 )
             {
                 return null;
             }
 
-            ILineStyle firstElement = _lineStyles.EnumerateAll().First();
-
-            foreach ( ILineStyle style in _lineStyles.EnumerateAll() )
+            ILineStyle firstElement = lineStyles.First();
+            foreach ( ILineStyle style in lineStyles )
             {
                 if ( style.GetColor() != firstElement.GetColor() )
                 {
@@ -33,34 +33,34 @@ namespace Slides.Styles.LineStyles
 
         public int GetLineWidth()
         {
-            if ( _lineStyles.EnumerateAll().Count == 0 )
+            List<ILineStyle> lineStyles = _getStyles();
+            if ( lineStyles.Count == 0 )
             {
                 return 0;
             }
 
-            int firstElementEnabled = _lineStyles.EnumerateAll().First().GetLineWidth();
-
-            foreach ( ILineStyle style in _lineStyles.EnumerateAll() )
+            int firstElementWidth = lineStyles.First().GetLineWidth();
+            foreach ( ILineStyle style in lineStyles )
             {
-                if ( style.GetLineWidth() != firstElementEnabled )
+                if ( style.GetLineWidth() != firstElementWidth )
                 {
                     return 0;
                 }
             }
 
-            return firstElementEnabled;
+            return firstElementWidth;
         }
 
         public bool? IsEnabled()
         {
-            if ( _lineStyles.EnumerateAll().Count == 0 )
+            List<ILineStyle> lineStyles = _getStyles();
+            if ( lineStyles.Count == 0 )
             {
                 return null;
             }
 
-            bool? firstElementEnabled = _lineStyles.EnumerateAll().First().IsEnabled();
-
-            foreach ( ILineStyle style in _lineStyles.EnumerateAll() )
+            bool? firstElementEnabled = lineStyles.First().IsEnabled();
+            foreach ( ILineStyle style in lineStyles )
             {
                 if ( style.IsEnabled() != firstElementEnabled )
                 {
@@ -71,9 +71,14 @@ namespace Slides.Styles.LineStyles
             return firstElementEnabled;
         }
 
+        public void SetLineWidth( int width )
+        {
+            _getStyles().ForEach( x => x.SetLineWidth( width ) );
+        }
+
         public void SetColor( RGBAColor color )
         {
-            _lineStyles.EnumerateAll().ForEach( x => x.SetColor( color ) );
+            _getStyles().ForEach( x => x.SetColor( color ) );
         }
     }
 }

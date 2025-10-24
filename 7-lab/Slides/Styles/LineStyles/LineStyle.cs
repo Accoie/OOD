@@ -12,6 +12,7 @@ namespace Slides.Styles.LineStyles
         {
             _color = color;
             _enabled = enabled;
+            _lineWidth = lineWidth;
         }
 
         public bool? IsEnabled()
@@ -27,6 +28,13 @@ namespace Slides.Styles.LineStyles
         public void SetColor( RGBAColor color )
         {
             _color = color;
+        }
+
+        public void SetLineWidth( int lineWidth )
+        {
+            ArgumentOutOfRangeException.ThrowIfNegative( lineWidth );
+
+            _lineWidth = lineWidth;
         }
 
         public int GetLineWidth()

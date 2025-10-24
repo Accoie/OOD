@@ -8,5 +8,6 @@ namespace Slides.Styles.LineStyles
         int GetLineWidth();
         RGBAColor? GetColor();
         void SetColor( RGBAColor color );
+        void SetLineWidth( int width );
     }
 }

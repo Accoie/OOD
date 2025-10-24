@@ -25,15 +25,15 @@ namespace Slides.Shapes
 
         public override void Draw( ICanvas canvas )
         {
-            Point firstPoint = _leftTop;
-            Point secondPoint = new Point( firstPoint.X, firstPoint.Y + _height );
-            Point thirdPoint = new Point( secondPoint.X + _width, secondPoint.Y );
-            Point fourthPoint = new Point( thirdPoint.X, secondPoint.Y - _height );
+            Point topLeft = new Point( _leftTop.X, _leftTop.Y );
+            Point topRight = new Point( _leftTop.X + _width, _leftTop.Y );
+            Point bottomRight = new Point( _leftTop.X + _width, _leftTop.Y + _height );
+            Point bottomLeft = new Point( _leftTop.X, _leftTop.Y + _height );
 
             if ( HasFill() )
             {
                 canvas.SetFillColor( GetFillColor() );
-                canvas.FillPolygon( [ firstPoint, secondPoint, thirdPoint, fourthPoint ] );
+                canvas.FillPolygon( [ topLeft, topRight, bottomRight, bottomLeft ] );
             }
 
             if ( HasLine() )
@@ -41,10 +41,10 @@ namespace Slides.Shapes
                 canvas.SetLineColor( GetLineColor() );
                 canvas.SetLineWidth( GetLineWidth() );
 
-                canvas.DrawLine( firstPoint, secondPoint );
-                canvas.DrawLine( secondPoint, thirdPoint );
-                canvas.DrawLine( thirdPoint, fourthPoint );
-                canvas.DrawLine( fourthPoint, firstPoint );
+                canvas.DrawLine( topLeft, topRight );
+                canvas.DrawLine( topRight, bottomRight );
+                canvas.DrawLine( bottomRight, bottomLeft );
+                canvas.DrawLine( bottomLeft, topLeft );
             }
         }
 
@@ -58,6 +58,8 @@ namespace Slides.Shapes
         {
             _width *= scaleX;
             _height *= scaleY;
+            _leftTop.X *= scaleX;
+            _leftTop.Y *= scaleY;
         }
     }
 }

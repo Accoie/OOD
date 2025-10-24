@@ -57,6 +57,15 @@ namespace Slides.Shapes
         {
             _frame.Width *= scaleX;
             _frame.Height *= scaleY;
+
+            _firstPoint.X *= scaleX;
+            _firstPoint.Y *= scaleY;
+
+            _secondPoint.X *= scaleX;
+            _secondPoint.Y *= scaleY;
+
+            _thirdPoint.X *= scaleX;
+            _thirdPoint.Y *= scaleY;
         }
     }
 }

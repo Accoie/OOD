@@ -38,13 +38,16 @@ namespace Slides.Shapes
 
         public void SetFrame( Frame frame )
         {
-            double scaleX = _frame.Width / frame.Width;
-            double scaleY = _frame.Height / frame.Height;
-            double dx = _frame.X - frame.X;
-            double dy = _frame.Y - frame.Y;
+            double scaleX = frame.Width / _frame.Width;
+            double scaleY = frame.Height / _frame.Height;
+
+            double dx = frame.X - _frame.X;
+            double dy = frame.Y - _frame.Y;
 
             Scale( scaleX, scaleY );
             Move( dx, dy );
+
+            _frame = frame;
         }
 
         public void SetFillStyle( IFillStyle style )

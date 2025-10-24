@@ -6,21 +6,30 @@ using Slides.Types;
 
 namespace Slides.Group
 {
-    public class ShapeGroup : IShapeGroup, ILineStyleEnumerator, IFillStyleEnumerator
+    public class ShapeGroup : IShapeGroup
     {
         private IShapeGroup? _parent;
-
         private List<IShape> _shapes;
-        private ILineStyle _lineStyle;
-        private IFillStyle _fillStyle;
+        private CompositeLineStyle _lineStyle;
+        private CompositeFillStyle _fillStyle;
         private Frame _frame;
 
         public ShapeGroup( List<IShape> shapes )
         {
             _shapes = shapes;
-            _lineStyle = new CompositeLineStyle( this );
-            _fillStyle = new CompositeFillStyle( this );
+            _lineStyle = new CompositeLineStyle( _shapes.Select( s => s.GetLineStyle() ).ToList );
+            _fillStyle = new CompositeFillStyle( _shapes.Select( s => s.GetFillStyle() ).ToList );
             _parent = null;
+
+            foreach ( IShape shape in _shapes )
+            {
+                if ( shape is IShapeGroup group )
+                {
+                    group.SetParent( this );
+                }
+            }
+
+            ActualizeFrame();
         }
 
         public void Draw( ICanvas canvas )
@@ -45,7 +54,7 @@ namespace Slides.Group
 
         public IShape GetShape( int index )
         {
-            if ( _shapes.Count <= index )
+            if ( _shapes.Count <= index || index < 0 )
             {
                 throw new ArgumentOutOfRangeException( "Index is out of range" );
             }
@@ -60,21 +69,23 @@ namespace Slides.Group
 
         public void InsertShape( IShape shape, int index )
         {
-            if ( shape != this && shape != _parent )
+            if ( index > _shapes.Count || index < 0 )
             {
-                if ( shape is IShapeGroup group )
-                {
-                    group.SetParent( this );
-                }
-                _shapes.Insert( index, shape );
-                ActualizeFrame();
+                throw new ArgumentOutOfRangeException( "Index is out of range" );
             }
+
+            if ( shape is IShapeGroup group )
+            {
+                group.SetParent( this );
+            }
+
+            _shapes.Insert( index, shape );
+            ActualizeFrame();
         }
 
         public void RemoveShape( int index )
         {
             _shapes.RemoveAt( index );
-
             ActualizeFrame();
         }
 
@@ -85,21 +96,26 @@ namespace Slides.Group
 
         public void SetFrame( Frame frame )
         {
-            double scaleX = _frame.Width / frame.Width;
-            double scaleY = _frame.Height / frame.Height;
-            double dx = _frame.X - frame.X;
-            double dy = _frame.Y - frame.Y;
+            if ( _frame.Width == 0 && _frame.Height == 0 )
+            {
+                _frame = frame;
+                return;
+            }
+
+            double scaleX = frame.Width / _frame.Width;
+            double scaleY = frame.Height / _frame.Height;
+
+            double dx = frame.X - _frame.X;
+            double dy = frame.Y - _frame.Y;
 
             foreach ( IShape shape in _shapes )
             {
-                Frame newFrame = shape.GetFrame();
+                Frame shapeFrame = shape.GetFrame();
 
-                newFrame.X += dx;
-                newFrame.Y += dy;
-                newFrame.Width *= scaleX;
-                newFrame.Height *= scaleY;
+                double newWidth = shapeFrame.Width * scaleX;
+                double newHeight = shapeFrame.Height * scaleY;
 
-                shape.SetFrame( newFrame );
+                shape.SetFrame( new Frame( shapeFrame.X + dx, shapeFrame.Y + dy, newWidth, newHeight ) );
             }
 
             _frame = frame;
@@ -123,8 +139,18 @@ namespace Slides.Group
             _parent = parent;
         }
 
+        public IShapeGroup? GetParent()
+        {
+            return _parent;
+        }
+
         public bool CheckExistParent( IShapeGroup parent )
         {
+            if ( _parent == this )
+            {
+                return false;
+            }
+
             if ( parent == _parent )
             {
                 return true;
@@ -143,22 +169,11 @@ namespace Slides.Group
             _shapes.ForEach( s => s.SetLineStyle( style ) );
         }
 
-        List<ILineStyle> ILineStyleEnumerator.EnumerateAll()
-        {
-            return _shapes.Select( s => s.GetLineStyle() ).ToList();
-        }
-
-        List<IFillStyle> IFillStyleEnumerator.EnumerateAll()
-        {
-            return _shapes.Select( s => s.GetFillStyle() ).ToList();
-        }
-
         private void ActualizeFrame()
         {
             if ( _shapes.Count == 0 )
             {
                 _frame = new Frame( 0, 0, 0, 0 );
-
                 return;
             }
 
