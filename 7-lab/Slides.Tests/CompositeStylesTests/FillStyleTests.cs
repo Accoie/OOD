@@ -45,7 +45,7 @@ namespace Slides.Tests.CompositeStylesTests
             {
                 CreateMockFillStyle(new RGBAColor(255, 0, 0, 255)),
                 CreateMockFillStyle(new RGBAColor(0, 255, 0, 255)),
-                CreateMockFillStyle(new RGBAColor(255, 0, 0, 255)) // Один отличается
+                CreateMockFillStyle(new RGBAColor(255, 0, 0, 255))
             };
 
             Func<List<IFillStyle>> getStyles = () => mockStyles;
