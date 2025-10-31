@@ -35,7 +35,8 @@ namespace Slides
             frame.Height -= 100;
             house2.SetFrame( frame );
             ShapeGroup scene = new ShapeGroup( [ sun, house1, house2 ] );
-
+            //scene.SetFillStyle( new FillStyle( new RGBAColor( 12, 222, 222, 1 ), true ) );
+            //scene.SetFillStyle( new FillStyle( new RGBAColor( 12, 222, 222, 1 ), false ) );
             slide.AddShape( scene );
             slide.Draw( canvas );
 
