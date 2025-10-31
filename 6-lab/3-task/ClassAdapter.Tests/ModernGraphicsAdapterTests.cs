@@ -6,20 +6,17 @@ namespace ObjectAdapter.Tests
     public class ModernGraphicsAdapterTests
     {
         private StringWriter _consoleOutput;
-        private TextWriter _originalOutput;
 
         [SetUp]
         public void Initialize()
         {
             _consoleOutput = new StringWriter();
-            _originalOutput = Console.Out;
             Console.SetOut( _consoleOutput );
         }
 
         [TearDown]
         public void Cleanup()
         {
-            Console.SetOut( _originalOutput );
             _consoleOutput.Dispose();
         }
 

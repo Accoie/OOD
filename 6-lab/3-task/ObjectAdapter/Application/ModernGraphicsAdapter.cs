@@ -7,8 +7,8 @@ namespace ObjectAdapter.Application
     {
         private readonly IModernGraphicsRenderer _modernGraphicsRenderer;
 
-        private Point _currentPoint = new Point( 0, 0 );
-        private RGBAColor _color = new RGBAColor( 0, 0, 0, 1.0 );
+        private Point _currentPoint = new( 0, 0 );
+        private RGBAColor _color = new( 0, 0, 0, 1.0 );
 
         public ModernGraphicsRendererAdapter( IModernGraphicsRenderer renderer )
         {
@@ -22,7 +22,7 @@ namespace ObjectAdapter.Application
 
         public void LineTo( double x, double y )
         {
-            Point toPoint = new Point( x, y );
+            Point toPoint = new( x, y );
 
             _modernGraphicsRenderer.BeginDraw();
             _modernGraphicsRenderer.DrawLine( _currentPoint, toPoint, _color );

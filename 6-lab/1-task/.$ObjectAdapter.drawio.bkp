@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.2 Chrome/134.0.6998.178 Electron/35.1.2 Safari/537.36" version="26.2.2">
   <diagram name="Страница — 1" id="PhY9HVjGLuqV9rY1AQZw">
-    <mxGraphModel dx="1697" dy="1697" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1776" dy="1745" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -26,13 +26,13 @@
           <mxGeometry y="166" width="290" height="26" as="geometry" />
         </mxCell>
         <mxCell id="uaMU-dn8yPj3X_pmfBiQ-10" value="PicturePainter" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="270" y="730" width="290" height="90" as="geometry" />
+          <mxGeometry x="270" y="730" width="260" height="90" as="geometry" />
         </mxCell>
         <mxCell id="uaMU-dn8yPj3X_pmfBiQ-13" value="&amp;nbsp; + PaintPictureOnCanvas(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="uaMU-dn8yPj3X_pmfBiQ-10" vertex="1">
-          <mxGeometry y="26" width="290" height="26" as="geometry" />
+          <mxGeometry y="26" width="260" height="26" as="geometry" />
         </mxCell>
         <mxCell id="uaMU-dn8yPj3X_pmfBiQ-14" value="&amp;nbsp; + PaintPictureOnModernGraphicsRenderer(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="uaMU-dn8yPj3X_pmfBiQ-10" vertex="1">
-          <mxGeometry y="52" width="290" height="38" as="geometry" />
+          <mxGeometry y="52" width="260" height="38" as="geometry" />
         </mxCell>
         <mxCell id="uaMU-dn8yPj3X_pmfBiQ-21" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ICanvas&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; + MoveTo(x: double, y: double): void&lt;br&gt;&amp;nbsp; + LineTo(x: double, y: double): void&lt;br style=&quot;padding: 0px; margin: 0px;&quot;&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="440" y="170" width="220" height="90" as="geometry" />
@@ -277,7 +277,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="DZCpffYaJv46y24mSYQH-1" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;entryX=0;entryY=0.143;entryDx=0;entryDy=0;exitX=0.992;exitY=-0.007;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" parent="1" source="uaMU-dn8yPj3X_pmfBiQ-70" target="uaMU-dn8yPj3X_pmfBiQ-40" edge="1">
+        <mxCell id="DZCpffYaJv46y24mSYQH-1" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;entryX=0;entryY=0.143;entryDx=0;entryDy=0;exitX=0.992;exitY=-0.007;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="uaMU-dn8yPj3X_pmfBiQ-70" target="uaMU-dn8yPj3X_pmfBiQ-40">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="910" y="10" as="sourcePoint" />
             <mxPoint x="975" y="-160" as="targetPoint" />

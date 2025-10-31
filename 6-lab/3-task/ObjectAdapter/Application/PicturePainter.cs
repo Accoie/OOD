@@ -8,14 +8,14 @@ namespace ObjectAdapter.Application
     {
         private static void PaintPicture( CanvasPainter painter )
         {
-            CTriangle triangle = new CTriangle(
+            CTriangle triangle = new(
                 new ShapeDrawingLib.Point( 10, 15 ),
                 new ShapeDrawingLib.Point( 100, 200 ),
                 new ShapeDrawingLib.Point( 150, 250 ),
                 0x22222222
             );
 
-            CRectangle rectangle = new CRectangle(
+            CRectangle rectangle = new(
                 new ShapeDrawingLib.Point( 30, 40 ), 18, 24, 0x11111111
             );
 
@@ -25,8 +25,8 @@ namespace ObjectAdapter.Application
 
         public static void PaintPictureOnCanvas()
         {
-            CCanvas simpleCanvas = new CCanvas();
-            CanvasPainter painter = new CanvasPainter( simpleCanvas );
+            CCanvas simpleCanvas = new();
+            CanvasPainter painter = new( simpleCanvas );
 
             PaintPicture( painter );
         }

@@ -2,7 +2,7 @@
 
 class Program
 {
-    static int Main()
+    public static int Main()
     {
         Console.Write( "Should we use new API (y)?" );
         string userInput = Console.ReadLine() ?? "";

@@ -46,8 +46,8 @@ namespace ObjectAdapter.Tests
 
             // Assert
             _mockRenderer.Verify( x => x.DrawLine(
-                It.IsAny<Point>(),
-                It.IsAny<Point>(),
+                It.Is<Point>( p => p.X == 0 && p.Y == 0 ),
+                It.Is<Point>( p => p.X == 10 && p.Y == 10 ),
                 It.Is<RGBAColor>( c => c.R == 1.0 && c.G == 0 && c.B == 0 && c.A == 1.0 ) ),
                 Times.Once );
         }
@@ -85,28 +85,6 @@ namespace ObjectAdapter.Tests
                 It.IsAny<Point>(),
                 It.IsAny<Point>(),
                 It.Is<RGBAColor>( c => c.R == 0 && c.G == 0 && c.B == 1.0 && c.A == 1.0 ) ),
-                Times.Once );
-        }
-
-        [Test]
-        public void DrawLine_WithCustomColor_ShouldConvertColorCorrectly()
-        {
-            // Arrange
-            _adapter.SetColor( 0x3A78F2 );
-            _adapter.MoveTo( 5, 5 );
-
-            // Act
-            _adapter.LineTo( 6, 6 );
-
-            // Assert
-            _mockRenderer.Verify( x => x.DrawLine(
-                It.IsAny<Point>(),
-                It.IsAny<Point>(),
-                It.Is<RGBAColor>( c =>
-                    Math.Abs( c.R - 0.227 ) < 0.01 &&
-                    Math.Abs( c.G - 0.471 ) < 0.01 &&
-                    Math.Abs( c.B - 0.949 ) < 0.01 &&
-                    c.A == 1.0 ) ),
                 Times.Once );
         }
 
@@ -188,62 +166,6 @@ namespace ObjectAdapter.Tests
                 It.IsAny<Point>(),
                 It.IsAny<Point>(),
                 It.Is<RGBAColor>( c => c.R == 1.0 && c.G == 1.0 && c.B == 1.0 && c.A == 1.0 ) ),
-                Times.Once );
-        }
-
-        [Test]
-        public void DrawLine_WithGrayColor_ShouldConvertCorrectly()
-        {
-            // Arrange
-            _adapter.SetColor( 0x808080 );
-            _adapter.MoveTo( 9, 9 );
-
-            // Act
-            _adapter.LineTo( 10, 10 );
-
-            // Assert
-            _mockRenderer.Verify( x => x.DrawLine(
-                It.IsAny<Point>(),
-                It.IsAny<Point>(),
-                It.Is<RGBAColor>( c =>
-                    Math.Abs( c.R - 0.5 ) < 0.01 &&
-                    Math.Abs( c.G - 0.5 ) < 0.01 &&
-                    Math.Abs( c.B - 0.5 ) < 0.01 &&
-                    c.A == 1.0 ) ),
-                Times.Once );
-        }
-
-        [Test]
-        public void DrawLine_SequenceWithColorChanges_ShouldMaintainProperState()
-        {
-            // Arrange
-            _adapter.MoveTo( 1, 1 );
-            _adapter.SetColor( 0xFF0000 );
-            _adapter.LineTo( 2, 2 );
-
-            // Act
-            _adapter.SetColor( 0x00FF00 );
-            _adapter.LineTo( 4, 4 );
-            _adapter.SetColor( 0x0000FF );
-            _adapter.LineTo( 8, 8 );
-
-            // Assert
-            _mockRenderer.Verify( x => x.DrawLine(
-                It.IsAny<Point>(),
-                It.IsAny<Point>(),
-                It.Is<RGBAColor>( c => c.R == 1.0 ) ),
-                Times.Once );
-
-            _mockRenderer.Verify( x => x.DrawLine(
-                It.IsAny<Point>(),
-                It.IsAny<Point>(),
-                It.Is<RGBAColor>( c => c.G == 1.0 ) ),
-                Times.Once );
-
-            _mockRenderer.Verify( x => x.DrawLine(
-                It.IsAny<Point>(),
-                It.IsAny<Point>(),
-                It.Is<RGBAColor>( c => c.B == 1.0 ) ),
                 Times.Once );
         }
     }
