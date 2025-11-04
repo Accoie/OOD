@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiGumballMachineApp", "MultiGumballMachineApp.csproj", "{CDF94D82-9224-A458-E5EA-515BBE32A138}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiGumballMachineApp.Tests", "..\MultiGumballMachine.Tests\MultiGumballMachineApp.Tests.csproj", "{A395CB09-B676-311C-5E63-6593EB9DD391}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDF94D82-9224-A458-E5EA-515BBE32A138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF94D82-9224-A458-E5EA-515BBE32A138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF94D82-9224-A458-E5EA-515BBE32A138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF94D82-9224-A458-E5EA-515BBE32A138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A395CB09-B676-311C-5E63-6593EB9DD391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A395CB09-B676-311C-5E63-6593EB9DD391}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A395CB09-B676-311C-5E63-6593EB9DD391}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A395CB09-B676-311C-5E63-6593EB9DD391}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB514851-B7CD-4351-B882-3463B5FEC092}
+	EndGlobalSection
+EndGlobal
