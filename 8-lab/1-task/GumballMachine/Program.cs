@@ -1,13 +1,15 @@
-﻿namespace GumballMachineApp
+﻿using GumballMachineApp.GumballMachines;
+
+namespace GumballMachineApp
 {
     class Program
     {
-        static void Main( string[] args )
+        static void Main()
         {
             Console.WriteLine( "Gumball Machine" );
             Console.WriteLine();
 
-            GumballMachines.GumballMachine machine = new GumballMachines.GumballMachine( 5 );
+            IGumballMachineClient machine = GumballMachineFactory.CreateGumballMachine( 5 );
             Console.WriteLine( machine );
 
             machine.InsertQuarter();

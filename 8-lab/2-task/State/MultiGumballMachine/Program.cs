@@ -1,4 +1,5 @@
-﻿using MultiGumballMachineApp.GumballMachines;
+﻿using GumballMachineApp;
+using MultiGumballMachineApp.GumballMachines;
 
 namespace MultiGumballMachineApp
 {
@@ -9,7 +10,7 @@ namespace MultiGumballMachineApp
             Console.WriteLine( "Gumball Machine" );
             Console.WriteLine();
 
-            IGumballMachineClient machine = new GumballMachine( 5 );
+            IGumballMachineClient machine = GumballMachineFactory.CreateGumballMachine( 5 );
             Console.WriteLine( machine );
 
             machine.InsertQuarter();
