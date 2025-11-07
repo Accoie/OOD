@@ -32,7 +32,7 @@ namespace GumballMachineApp.States
             if ( _gumballMachine.GetGumballsCount() == 0 )
             {
                 Console.WriteLine( "Oops, out of gumballs" );
-                _gumballMachine.SetSoldOutState();
+               _gumballMachine.SetSoldOutState();
             }
             else
             {

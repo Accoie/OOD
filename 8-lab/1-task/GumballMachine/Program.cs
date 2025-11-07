@@ -2,9 +2,9 @@
 
 namespace GumballMachineApp
 {
-    class Program
+    public class Program // повторить теорию по паттерну состояние
     {
-        static void Main()
+        public static void Main()
         {
             Console.WriteLine( "Gumball Machine" );
             Console.WriteLine();
