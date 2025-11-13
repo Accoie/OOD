@@ -1,68 +1,56 @@
-﻿using System.Diagnostics;
+﻿using TiledImage.Types;
 
 namespace TiledImage
 {
-    public class CoW<T> where T : class, new()
+    public class CopyOnWrite : ITile
     {
-        private T _value;
+        private Tile _tile;
+        private ReferencesCounter _referencesCounter;
 
-        public class WriteProxy : IDisposable
+        private CopyOnWrite( Tile tile, ReferencesCounter counter )
         {
-            private readonly CoW<T> _parent;
-            private bool _disposed = false;
+            _tile = tile;
+            _referencesCounter = counter;
+            _referencesCounter++;
+        }
 
-            public T Value => _parent._value;
+        public static CopyOnWrite CreateShared( uint color = 0 )
+        {
+            Tile tile = new Tile( color );
+            ReferencesCounter counter = new ReferencesCounter();
+            return new CopyOnWrite( tile, counter );
+        }
 
-            internal WriteProxy( CoW<T> parent )
+        public uint GetPixel( Point point ) => _tile.GetPixel( point );
+
+        public void SetPixel( Point point, uint color )
+        {
+            if ( _referencesCounter.Count > 1 )
             {
-                _parent = parent;
+                _referencesCounter--;
+                _tile = _tile.Clone();
+                _referencesCounter = new ReferencesCounter();
+                _referencesCounter++;
             }
 
-            public void Dispose()
+            _tile.SetPixel( point, color );
+        }
+
+        private class ReferencesCounter
+        {
+            public int Count { get; private set; }
+
+            public static ReferencesCounter operator --( ReferencesCounter counter )
             {
-                if ( !_disposed )
-                {
-                    _disposed = true;
-                }
-            }
-        }
-
-        public CoW()
-        {
-            _value = new T();
-        }
-
-        public CoW( Func<T> factory )
-        {
-            _value = factory();
-        }
-
-        public CoW( T value )
-        {
-            _value = value ?? throw new ArgumentNullException( nameof( value ) );
-        }
-
-        public T Value
-        {
-            get
-            {
-                return _value;
-            }
-        }
-
-        public void Modify( Action<T> modifier )
-        {
-            if ( modifier == null )
-            {
-                throw new ArgumentNullException( nameof( modifier ) );
+                counter.Count--;
+                return counter;
             }
 
-            modifier( _value );
-        }
-
-        public WriteProxy GetWriteProxy()
-        {
-            return new WriteProxy( this );
+            public static ReferencesCounter operator ++( ReferencesCounter counter )
+            {
+                counter.Count++;
+                return counter;
+            }
         }
     }
 }

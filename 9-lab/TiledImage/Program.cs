@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace TiledImage
+﻿namespace TiledImage
 {
     public class Program
     {
         public static void Main()
         {
-            DrawingApp.DrawCity();
+            DrawingApp.DrawCityAscii();
             DrawingApp.DrawHouse();
         }
     }

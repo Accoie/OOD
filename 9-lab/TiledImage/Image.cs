@@ -1,87 +1,44 @@
-﻿namespace TiledImage
+﻿using TiledImage.Types;
+
+namespace TiledImage;
+
+public class Image
 {
-    public class Image
+    private readonly List<List<ITile>> _tiles;
+
+    public Size Size { get; }
+
+    public Image( Size size, uint color = 0 )
     {
-        public Size Size { get; }
+        Size = size;
+        _tiles = TileFactory.CreateTiles( size, color );
+    }
 
-        public uint Height
+    public uint GetPixel( Point p )
+    {
+        if ( !Geom.IsPointInSize( p, Size ) )
         {
-            get { return Size.Height; }
+            throw new ArgumentOutOfRangeException( $"GetPixel: point {p} is out of range" );
         }
 
-        private List<List<CoW<Tile>>> _tiles;
+        int tileX = p.X / Tile.Size;
+        int tileY = p.Y / Tile.Size;
+        Point pixel = new( p.X % Tile.Size, p.Y % Tile.Size );
 
-        public Image( Size size, uint color = 0xFFFFFF )
+        return _tiles[ tileY ][ tileX ].GetPixel( pixel );
+    }
+
+    public void SetPixel( Point p, uint color )
+    {
+        if ( !Geom.IsPointInSize( p, Size ) )
         {
-            if ( size.Width <= 0 || size.Height <= 0 )
-            {
-                throw new ArgumentOutOfRangeException( nameof( size ), "Size dimensions must be positive" );
-            }
-
-            Size = size;
-
-            uint tilesWidth = ( size.Width + Tile.SIZE - 1 ) / Tile.SIZE;
-            uint tilesHeight = ( size.Height + Tile.SIZE - 1 ) / Tile.SIZE;
-
-            _tiles = new List<List<CoW<Tile>>>( ( int )tilesHeight );
-
-            for ( int y = 0; y < tilesHeight; y++ )
-            {
-                List<CoW<Tile>> row = new List<CoW<Tile>>( ( int )tilesWidth );
-                for ( int x = 0; x < tilesWidth; x++ )
-                {
-                    row.Add( new CoW<Tile>( new Tile( color ) ) );
-                }
-                _tiles.Add( row );
-            }
+            throw new ArgumentOutOfRangeException( $"SetPixel: point {p} is out of range" );
         }
 
-        public uint GetPixel( Point p )
-        {
-            if ( !IsPointInSize( p, Size ) )
-            {
-                return 0xFFFFFF;
-            }
+        int tileX = p.X / Tile.Size;
+        int tileY = p.Y / Tile.Size;
+        Point pixel = new( p.X % Tile.Size, p.Y % Tile.Size );
 
-            int tileX = p.X / Tile.SIZE;
-            int tileY = p.Y / Tile.SIZE;
-            int pixelX = p.X % Tile.SIZE;
-            int pixelY = p.Y % Tile.SIZE;
-
-            return _tiles[ tileY ][ tileX ].Value.GetPixel( new Point( pixelX, pixelY ) );
-        }
-
-        public void SetPixel( Point p, uint color )
-        {
-            if ( !IsPointInSize( p, Size ) )
-            {
-                return;
-            }
-
-            int tileX = p.X / Tile.SIZE;
-            int tileY = p.Y / Tile.SIZE;
-            int pixelX = p.X % Tile.SIZE;
-            int pixelY = p.Y % Tile.SIZE;
-
-            _tiles[ tileY ][ tileX ].Modify( tile =>
-            {
-                tile.SetPixel( new Point( pixelX, pixelY ), color );
-            } );
-        }
-
-        private bool IsPointInSize( Point p, Size size )
-        {
-            return p.X >= 0 && p.X < size.Width && p.Y >= 0 && p.Y < size.Height;
-        }
-
-        public uint GetPixel( int x, int y )
-        {
-            return GetPixel( new Point( x, y ) );
-        }
-
-        public void SetPixel( int x, int y, uint color )
-        {
-            SetPixel( new Point( x, y ), color );
-        }
+        _tiles[ tileY ][ tileX ].SetPixel( pixel, color );
     }
 }

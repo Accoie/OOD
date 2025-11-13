@@ -1,4 +1,6 @@
-﻿namespace TiledImage
+﻿using TiledImage.Types;
+
+namespace TiledImage
 {
     public class DrawingApp
     {
@@ -23,7 +25,7 @@
             ImageController.SaveImageToPPM( img, "house.ppm" );
         }
 
-        public static void DrawCity()
+        public static void DrawCityAscii()
         {
             Image img = ImageController.LoadImage(
                 "    ##    ####    ##  \n" +
@@ -34,7 +36,7 @@
                 "  ################### \n" +
                 "   ##  ##  ##  ##  ## \n"
             );
-            Console.WriteLine( "Drawing City Skyline:" );
+            Console.WriteLine( "Drawing City:" );
             ImageController.Print( img, Console.Out );
             Console.WriteLine();
         }

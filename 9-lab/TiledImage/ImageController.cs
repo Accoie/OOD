@@ -1,4 +1,6 @@
-﻿namespace TiledImage
+﻿using TiledImage.Types;
+
+namespace TiledImage
 {
     public static class ImageController
     {
@@ -8,16 +10,12 @@
             PrintImageContent( img, output );
         }
 
-        public static void Print( Image img )
-        {
-            Print( img, Console.Out );
-        }
-
         public static Image LoadImage( string pixels )
         {
             ValidateLoadImageParameters( pixels );
             string[] lines = pixels.Split( '\n' );
             Size size = CalculateImageSize( lines );
+
             return CreateImageFromLines( lines, size );
         }
 
@@ -25,19 +23,6 @@
         {
             ValidateSaveImageParameters( image, filename );
             WritePPMFile( image, filename );
-        }
-
-        public static Image LoadImageFromFile( string filename )
-        {
-            ValidateFilename( filename );
-            string pixels = File.ReadAllText( filename );
-            return LoadImage( pixels );
-        }
-
-        public static void SaveImageToText( Image image, string filename )
-        {
-            ValidateSaveImageParameters( image, filename );
-            WriteTextFile( image, filename );
         }
 
         private static void ValidatePrintParameters( Image img, TextWriter output )
@@ -89,16 +74,18 @@
                 }
             }
             uint height = ( uint )lines.Length;
+
             return new Size( maxWidth, height );
         }
 
         private static Image CreateImageFromLines( string[] lines, Size size )
         {
-            Image img = new Image( size, ' ' );
+            Image img = new Image( size, 0 );
             for ( int y = 0; y < size.Height; y++ )
             {
                 FillImageLine( img, lines[ y ], y, size.Width );
             }
+
             return img;
         }
 
@@ -111,7 +98,7 @@
             }
             for ( int x = line.Length; x < maxWidth; x++ )
             {
-                img.SetPixel( new Point( x, y ), ' ' );
+                img.SetPixel( new Point( x, y ), 0 );
             }
         }
 
@@ -121,6 +108,7 @@
             {
                 throw new ArgumentNullException( nameof( image ) );
             }
+
             ValidateFilename( filename );
         }
 
@@ -162,6 +150,7 @@
                     uint color = image.GetPixel( new Point( x, y ) );
                     WriteColorComponents( file, color );
                 }
+
                 file.WriteLine();
             }
         }
@@ -172,14 +161,6 @@
             byte g = ( byte )( ( color >> 8 ) & 0xFF );
             byte b = ( byte )( color & 0xFF );
             file.Write( $"{( int )r} {( int )g} {( int )b} " );
-        }
-
-        private static void WriteTextFile( Image image, string filename )
-        {
-            using ( StreamWriter file = new StreamWriter( filename ) )
-            {
-                Print( image, file );
-            }
         }
     }
 }

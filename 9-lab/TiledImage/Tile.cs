@@ -1,84 +1,46 @@
-﻿using System;
+﻿using TiledImage.Types;
 
 namespace TiledImage
 {
-    public class Tile : IDisposable
+    public class Tile : ITile
     {
-        public const int SIZE = 8;
-        private static int _instanceCount = 0;
-        private uint[] _pixels;
+        private readonly uint[,] _pixels = new uint[ Size, Size ];
 
-        public Tile()
-        {
-            _pixels = new uint[ SIZE * SIZE ];
-            Array.Fill( _pixels, 0xFFFFFFu );
-            _instanceCount++;
-        }
+        public const int Size = 8;
 
-        public Tile( uint color )
+        public Tile( uint color = 0 )
         {
-            _pixels = new uint[ SIZE * SIZE ];
-            Array.Fill( _pixels, color );
-            _instanceCount++;
+            for ( int y = 0; y < Size; y++ )
+                for ( int x = 0; x < Size; x++ )
+                    _pixels[ y, x ] = color;
         }
 
         public Tile( Tile other )
         {
-            if ( other == null )
-                throw new ArgumentNullException( nameof( other ) );
-
-            _pixels = new uint[ SIZE * SIZE ];
-            Array.Copy( other._pixels, _pixels, other._pixels.Length );
-            _instanceCount++;
+            for ( int y = 0; y < Size; y++ )
+                for ( int x = 0; x < Size; x++ )
+                    _pixels[ y, x ] = other._pixels[ y, x ];
         }
 
-        public void Dispose()
+
+        public uint GetPixel( Point point )
         {
-            Dispose( true );
-            GC.SuppressFinalize( this );
+            return CheckPointInSize( point ) ? _pixels[ point.Y, point.X ] : 0;
         }
 
-        protected virtual void Dispose( bool disposing )
+        public void SetPixel( Point point, uint color )
         {
-            if ( disposing )
+            if ( CheckPointInSize( point ) )
             {
-                _instanceCount--;
+                _pixels[ point.Y, point.X ] = color;
             }
         }
 
-        public void SetPixel( Point p, uint color )
+        public Tile Clone() => new Tile( this );
+
+        private static bool CheckPointInSize( Point point )
         {
-            if ( p.X >= 0 && p.X < SIZE && p.Y >= 0 && p.Y < SIZE )
-            {
-                _pixels[ p.Y * SIZE + p.X ] = color;
-            }
+            return Geom.IsPointInSize( point, new Size( Size, Size ) );
         }
-
-        public uint GetPixel( Point p )
-        {
-            if ( p.X >= 0 && p.X < SIZE && p.Y >= 0 && p.Y < SIZE )
-            {
-                return _pixels[ p.Y * SIZE + p.X ];
-            }
-
-            return 0xFFFFFF;
-        }
-
-        public static int GetInstanceCount()
-        {
-            return _instanceCount;
-        }
-
-        public void SetPixel( int x, int y, uint color )
-        {
-            SetPixel( new Point( x, y ), color );
-        }
-
-        public uint GetPixel( int x, int y )
-        {
-            return GetPixel( new Point( x, y ) );
-        }
-
-        public uint[] Pixels => _pixels;
     }
 }
