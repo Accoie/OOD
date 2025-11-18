@@ -18,7 +18,13 @@ namespace TiledImage
         {
             Tile tile = new Tile( color );
             ReferencesCounter counter = new ReferencesCounter();
+
             return new CopyOnWrite( tile, counter );
+        }
+
+        public CopyOnWrite CreateSharedCopy()
+        {
+            return new CopyOnWrite( _tile, _referencesCounter );
         }
 
         public uint GetPixel( Point point ) => _tile.GetPixel( point );
@@ -43,12 +49,14 @@ namespace TiledImage
             public static ReferencesCounter operator --( ReferencesCounter counter )
             {
                 counter.Count--;
+
                 return counter;
             }
 
             public static ReferencesCounter operator ++( ReferencesCounter counter )
             {
                 counter.Count++;
+
                 return counter;
             }
         }

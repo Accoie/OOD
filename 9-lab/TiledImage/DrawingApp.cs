@@ -85,9 +85,9 @@ namespace TiledImage
             const int HouseStartX = 10;
             const int HouseEndX = 30;
 
-            Drawer.DrawLine( img, new Point( RoofStartX, RoofBaseY ), new Point( RoofPeakX, RoofPeakY ), RoofColor );
-            Drawer.DrawLine( img, new Point( RoofPeakX, RoofPeakY ), new Point( RoofEndX, RoofBaseY ), RoofColor );
-            Drawer.DrawLine( img, new Point( RoofStartX, RoofBaseY ), new Point( RoofEndX, RoofBaseY ), RoofColor );
+            DrawService.DrawLine( img, new Point( RoofStartX, RoofBaseY ), new Point( RoofPeakX, RoofPeakY ), RoofColor );
+            DrawService.DrawLine( img, new Point( RoofPeakX, RoofPeakY ), new Point( RoofEndX, RoofBaseY ), RoofColor );
+            DrawService.DrawLine( img, new Point( RoofStartX, RoofBaseY ), new Point( RoofEndX, RoofBaseY ), RoofColor );
 
             for ( int y = 3; y < RoofBaseY; y++ )
             {
@@ -152,10 +152,10 @@ namespace TiledImage
             const int RightWindowStartX = 24;
             const int RightWindowEndX = 28;
 
-            Drawer.DrawLine( img, new Point( LeftWindowCenterX, WindowStartY ), new Point( LeftWindowCenterX, WindowEndY - 1 ), FrameColor );
-            Drawer.DrawLine( img, new Point( LeftWindowStartX, WindowMiddleY ), new Point( LeftWindowEndX - 1, WindowMiddleY ), FrameColor );
-            Drawer.DrawLine( img, new Point( RightWindowCenterX, WindowStartY ), new Point( RightWindowCenterX, WindowEndY - 1 ), FrameColor );
-            Drawer.DrawLine( img, new Point( RightWindowStartX, WindowMiddleY ), new Point( RightWindowEndX - 1, WindowMiddleY ), FrameColor );
+            DrawService.DrawLine( img, new Point( LeftWindowCenterX, WindowStartY ), new Point( LeftWindowCenterX, WindowEndY - 1 ), FrameColor );
+            DrawService.DrawLine( img, new Point( LeftWindowStartX, WindowMiddleY ), new Point( LeftWindowEndX - 1, WindowMiddleY ), FrameColor );
+            DrawService.DrawLine( img, new Point( RightWindowCenterX, WindowStartY ), new Point( RightWindowCenterX, WindowEndY - 1 ), FrameColor );
+            DrawService.DrawLine( img, new Point( RightWindowStartX, WindowMiddleY ), new Point( RightWindowEndX - 1, WindowMiddleY ), FrameColor );
         }
 
         private static void DrawSun( Image img )
@@ -165,7 +165,7 @@ namespace TiledImage
             const int SunCenterY = 5;
             const int SunRadius = 3;
 
-            Drawer.FillCircle( img, new Point( SunCenterX, SunCenterY ), SunRadius, SunColor );
+            DrawService.FillCircle( img, new Point( SunCenterX, SunCenterY ), SunRadius, SunColor );
         }
 
         private static void DrawTree( Image img )
@@ -179,8 +179,8 @@ namespace TiledImage
             const int TreeLeavesY = 12;
             const int TreeLeavesRadius = 3;
 
-            Drawer.DrawLine( img, new Point( TreeTrunkX, TreeTrunkStartY ), new Point( TreeTrunkX, TreeTrunkEndY ), TreeTrunkColor );
-            Drawer.FillCircle( img, new Point( TreeLeavesX, TreeLeavesY ), TreeLeavesRadius, TreeLeavesColor );
+            DrawService.DrawLine( img, new Point( TreeTrunkX, TreeTrunkStartY ), new Point( TreeTrunkX, TreeTrunkEndY ), TreeTrunkColor );
+            DrawService.FillCircle( img, new Point( TreeLeavesX, TreeLeavesY ), TreeLeavesRadius, TreeLeavesColor );
         }
 
         private static void DrawPath( Image img )

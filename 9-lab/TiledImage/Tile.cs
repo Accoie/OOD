@@ -22,7 +22,6 @@ namespace TiledImage
                     _pixels[ y, x ] = other._pixels[ y, x ];
         }
 
-
         public uint GetPixel( Point point )
         {
             return CheckPointInSize( point ) ? _pixels[ point.Y, point.X ] : 0;

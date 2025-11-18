@@ -9,7 +9,7 @@ namespace TiledImage
             List<List<ITile>> result = new();
             if ( size.Width <= 0 || size.Height <= 0 )
             {
-                throw new ArgumentOutOfRangeException( nameof( size ), "Size dimensions must be positive" );
+                throw new ArgumentOutOfRangeException( "Size dimensions must be positive" );
             }
 
             uint tilesWidth = ( size.Width + Tile.Size - 1 ) / Tile.Size;
@@ -17,12 +17,14 @@ namespace TiledImage
 
             result = new List<List<ITile>>( ( int )tilesHeight );
 
+            CopyOnWrite prototypeTile = CopyOnWrite.CreateShared( color );
+
             for ( int y = 0; y < tilesHeight; y++ )
             {
                 List<ITile> row = new( ( int )tilesWidth );
                 for ( int x = 0; x < tilesWidth; x++ )
                 {
-                    row.Add( CopyOnWrite.CreateShared( color ) );
+                    row.Add( prototypeTile.CreateSharedCopy() );
                 }
                 result.Add( row );
             }

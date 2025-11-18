@@ -2,7 +2,7 @@
 
 namespace TiledImage;
 
-public static class Drawer
+public static class DrawService // 3js
 {
     private const int initialMultiplier = 3;
     private const int radiusMultiplier = 2;
