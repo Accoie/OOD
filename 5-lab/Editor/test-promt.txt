@@ -1,0 +1,4 @@
+InsertParagraph end sdfasdf
+InsertImage end 222 222 C:\Users\Макс\Downloads\PictureFactoryUML.jpg
+Save C:\OOD\5-lab\Editor\test
+Undo
