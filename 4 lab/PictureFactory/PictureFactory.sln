@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureFactory", "PictureFactory.csproj", "{6981BA40-4E2E-4506-98C3-E061356A7119}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureFactory.Tests", "..\PictureFactory.Tests\PictureFactory.Tests.csproj", "{55E1B73B-8717-4FD0-B49B-649513C3491A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6981BA40-4E2E-4506-98C3-E061356A7119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6981BA40-4E2E-4506-98C3-E061356A7119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6981BA40-4E2E-4506-98C3-E061356A7119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6981BA40-4E2E-4506-98C3-E061356A7119}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E1B73B-8717-4FD0-B49B-649513C3491A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E1B73B-8717-4FD0-B49B-649513C3491A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E1B73B-8717-4FD0-B49B-649513C3491A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E1B73B-8717-4FD0-B49B-649513C3491A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D00D2B2-D76A-4696-ABF9-EE82C0380203}
+	EndGlobalSection
+EndGlobal
